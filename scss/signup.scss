@@ -1,0 +1,41 @@
+.signup-container{
+  background-size: cover;
+  background: url('../img/b7.jpg') center;
+  .signup-header{
+    margin-top: 40px;
+  }
+  .content{
+    margin: 0 auto;
+    .app-icon {
+      display: inline-block;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      background-color: $light;
+    }
+    h1 {
+        display: inline-block;
+        color: $light;
+        text-shadow: 0 1px 0px;
+        font-size: 42px;
+    }
+    .app-icon {
+      background-color: $light;
+      background: url('../img/logo.png') center;
+      background-size: cover;
+      border-radius: 50%;
+      height: 125px;
+      margin: 0 auto;
+      width: 125px;
+  }
+  }
+  form{
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .validation{
+    display: block;
+    padding-right: 25px;
+  }
+}

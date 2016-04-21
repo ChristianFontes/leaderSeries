@@ -1,0 +1,63 @@
+<ion-content class="signup-container">
+
+  <a class="button icon-left ion-chevron-left button-clear button-light" href=""
+  ng-click='goBack()'>Back</a>
+  <div class="row signup-header">
+    <div class="content">
+      <img ng-src="img/logo.png" class="app-icon">
+      <h1>TEGScrum</h1>
+    </div>
+  </div>
+  <div class="error" ng-show="showErr">
+    err
+  </div>
+
+  <div class="row">
+  <form name="signupForm" ng-submit="signup(signupForm)" >
+  <div class="list list-inset">
+    <label class="item item-input">
+      <i class="icon ion-person placeholder-icon"></i>
+      <input type="text" ng-minlength="5" ng-maxlength="20" name="username" ng-model="data.username" placeholder="Username" required>
+      <div class="validation">
+        <i ng-show="signupForm.$submitted || signupForm.username.$touched"
+          ng-if="signupForm.username.$error.minlength || 
+                  signupForm.username.$error.maxlength ||
+                  signupForm.username.$error.required" 
+          class="icon ion-android-close assertive"></i>
+        <i ng-if="signupForm.username.$valid" class="icon ion-android-done balanced"></i>
+      </div>
+    </label>
+    <label class="item item-input">
+      <i class="icon ion-email placeholder-icon"></i>
+      <input type="email" ng-minlength="15" ng-maxlength="40" name="email" ng-model="data.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Email" required>
+      <div class="validation">
+        <i ng-show="signupForm.$submitted || signupForm.email.$touched"
+          ng-if="signupForm.email.$error.minlength || 
+                  signupForm.email.$error.maxlength ||
+                  signupForm.email.$error.required  ||
+                  signupForm.email.$error.email     ||
+                  signupForm.email.$error.pattern" 
+          class="icon ion-android-close assertive"></i>
+        <i ng-if="signupForm.email.$valid" class="icon ion-android-done balanced"></i>
+      </div>
+    </label>
+    <label class="item item-input">
+      <i class="icon ion-locked placeholder-icon"></i>
+      <input type="password" ng-minlength="6" ng-maxlength="30" name="password" ng-model="data.password" placeholder="Password" required>
+      <div class="validation">
+        <i ng-show="signupForm.$submitted || signupForm.password.$touched"
+          ng-if="signupForm.password.$error.minlength || 
+                  signupForm.password.$error.maxlength ||
+                  signupForm.password.$error.required" 
+          class="icon ion-android-close assertive"></i>
+        <i ng-if="signupForm.password.$valid" class="icon ion-android-done balanced"></i>
+      </div>
+    </label>
+  </div>
+  <div class="padding">
+    <button type="submit" class="button button-full button-assertive ink"> Register </button>
+  </div>
+</form>
+</div>
+
+</ion-content>

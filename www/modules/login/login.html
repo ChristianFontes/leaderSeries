@@ -1,0 +1,58 @@
+<ion-content class="login-container">
+  <div class="hero no-header flat">
+    <div class="content">
+      <div class="app-icon"></div>
+      <h1>Leader Series</h1>
+    </div>
+  </div>
+
+  <div class="error-center">
+    <div ng-show="showErr">
+     err
+    </div>
+  </div>
+
+  <div class="row">
+    <form name="loginForm" ng-submit="login(loginForm)" >
+      <div class="list list-inset">
+        <label class="item item-input">
+          <i class="icon ion-person placeholder-icon"></i>
+          <input type="text" ng-minlength="10" ng-maxlength="40" name="email" ng-model="data.email" placeholder="Username" required>
+          <div class="validation">
+            <i ng-show="loginForm.$submitted || loginForm.email.$touched"
+              ng-if="loginForm.email.$error.minlength ||
+                      loginForm.email.$error.maxlength ||
+                      loginForm.email.$error.required"
+              class="icon ion-android-close assertive"></i>
+            <i ng-if="loginForm.email.$valid" class="icon ion-android-done balanced"></i>
+          </div>
+        </label>
+        <label class="item item-input">
+          <i class="icon ion-locked placeholder-icon"></i>
+          <input type="password" ng-minlength="6" ng-maxlength="30" name="password" ng-model="data.password" placeholder="Password" required>
+          <div class="validation">
+            <i ng-show="loginForm.$submitted || loginForm.password.$touched"
+              ng-if="loginForm.password.$error.minlength ||
+                    loginForm.password.$error.maxlength ||
+                    loginForm.password.$error.required"
+              class="icon ion-android-close assertive"></i>
+            <i ng-if="loginForm.password.$valid" class="icon ion-android-done balanced"></i>
+          </div>
+        </label>
+      </div>
+      <div class="padding center-botton">
+        <button class="btn waves-effect waves-light" type="submit" name="action">LOGIN
+          <i class="ion-android-send right"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="row">
+    <div class="signup-link-container padding-bottom">
+      <a class="signup-link" ui-sref="signup">msg register
+        <span> register </span>
+      </a>
+    </div>
+
+  </div>
+</ion-content>
