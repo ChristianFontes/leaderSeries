@@ -9831,6 +9831,8 @@ a.button {
     text-align: center; }
   .login-container .center-botton {
     text-align: center; }
+  .login-container .color-white {
+    color: #fff; }
 
 .signup-container {
   background-size: cover;
@@ -9865,3 +9867,5 @@ a.button {
   .signup-container .validation {
     display: block;
     padding-right: 25px; }
+  .signup-container .center-botton {
+    text-align: center; }
