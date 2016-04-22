@@ -1,0 +1,32 @@
+<ion-side-menus ng-controller="seriesDashboardController">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-dark nav-title-slide-ios7">
+      <ion-nav-buttons class="button-clear">
+        <button class="button icon ion-navicon-round" ng-click="toggleLeft()"></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left" class="sideMenu-container">
+    <div class="header">
+          <div class="item item-avatar">
+            <img src="{{user.avatar}}">
+            <h2 class="light">{{user.username}}</h2>
+            <h7 class="light">{{user.email}}</h7>
+          </div>
+        <h5 menu-close class="item item-icon-left light">
+          <i class="icon ion-android-clipboard"></i><b>My Series</b>
+        </h5>
+        
+        <h5 menu-close class="item item-icon-left light">
+          <i class="icon ion-android-search"></i><b>Search Series</b>
+        </h5>
+
+        <h5 menu-close class="item item-icon-left light">
+          <i class="icon ion-person"></i><b>Account</b>
+        </h5>
+      </ion-list>
+    </div>
+  </ion-side-menu>
+</ion-side-menus>

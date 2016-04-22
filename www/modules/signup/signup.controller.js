@@ -3,17 +3,18 @@
     angular.module('leaderSeries')
         .controller('signupController', controller);
 
-    function controller($stateParams, $scope, $window, $state, $sessionStorage) {
+    function controller($stateParams, $scope, $window, $state, $sessionStorage, User) {
       
       $scope.data = {};
       $scope.err = '';
       $scope.go = go;
       $scope.signup = signup;
-      $scope.data.avatar = "../img/profile-default.png";
+      $scope.data.avatar = "../img/avatar-default.jpg";
 
       function go(path){
         $state.go(path);
       }
+
       function signup(form) {
             if (!form.$invalid) {
                 var user = new User($scope.data);
@@ -21,7 +22,7 @@
                     $sessionStorage.sessionUser = response;
                     if($sessionStorage.currentProject)
                         delete $sessionStorage.currentProject;
-                    $state.go('tab.projectsDashboard');
+                    $state.go('series.Dashboard');
                 }, function(error) {
                     $scope.err = error;
                     $scope.showErr = true;

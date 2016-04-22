@@ -22,7 +22,7 @@
                 credentials.password = $scope.data.password;
                 var login = AuthService.login(credentials)
                     .success(function (response) {
-                        $state.go('tab.projectsDashboard');
+                        $state.go('series.Dashboard');
                     })
                     .error(function (response, status) {
                         if(response.responseMsg){

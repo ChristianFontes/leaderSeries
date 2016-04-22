@@ -9869,3 +9869,14 @@ a.button {
     padding-right: 25px; }
   .signup-container .center-botton {
     text-align: center; }
+
+.dashboard-container {
+  background-size: cover;
+  background: url("../img/b7.jpg") center; }
+
+.sideMenu-container {
+  background-size: cover;
+  background: url("../img/b4.jpg") center;
+  color: white; }
+  .sideMenu-container .item {
+    background-color: transparent !important; }
