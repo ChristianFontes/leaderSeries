@@ -45,7 +45,6 @@
 
         function setCurrentSerie(serie) {
             $sessionStorage.currentSerie = serie;
-            console.log(serie);
             $state.go('series.currentSerie');
         }
     }

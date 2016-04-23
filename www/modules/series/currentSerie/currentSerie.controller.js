@@ -7,6 +7,8 @@
         $scope.go = go;
         $scope.currentSerie = {};
         $scope.summary = {};
+        $scope.next = {};
+        $scope.previous = {};
 
         function go(path) {
             $state.go(path);
@@ -19,7 +21,9 @@
         $scope.$on('$ionicView.beforeEnter', function () {
             $scope.currentSerie = $sessionStorage.currentSerie;
             $scope.summary = $sessionStorage.currentSerie.show.summary.replace(/<\/?[^>]+>/gi, '');
-            episodes();
+
+            showNextEpisode();
+            showPreviousEpisode();
         });
 
         $scope.previousepisode = function() {
@@ -32,11 +36,41 @@
             var next = $scope.next.replace(/[^0-9]/g, '');
         };
 
-        function episodes() {
-            var episodeId = $sessionStorage.currentSerie.show.id;
-            Series.showEpisodeList(episodeId).then(function(result) {
-                $scope.episodes = result;
-            });
+        function showNextEpisode() {
+            if($sessionStorage.currentSerie.show._links.nextepisode.href){
+                $scope.next = $sessionStorage.currentSerie.show._links.nextepisode.href;
+                var next = $scope.next.replace(/[^0-9]/g, '');
+
+                var episodeId = $sessionStorage.currentSerie.show.id;
+                Series.showEpisodeList(episodeId).then(function(result) {
+                    $scope.episodes = result;
+                    for (var i = 0; i < result.length; i++) {
+                        if(result[i].id == next){
+                            console.log("next ",result[i]);
+                            $scope.nextEpisode = result[i];
+                        }
+                    }
+                });
+            }
+        };
+
+        function showPreviousEpisode() {
+            if($sessionStorage.currentSerie.show._links.previousepisode.href){
+
+                $scope.previous = $sessionStorage.currentSerie.show._links.previousepisode.href;
+                var previous = $scope.previous.replace(/[^0-9]/g, '');
+
+                var episodeId = $sessionStorage.currentSerie.show.id;
+                Series.showEpisodeList(episodeId).then(function(result) {
+                    $scope.episodes = result;
+                    for (var i = 0; i < result.length; i++) {
+                        if(result[i].id == previous){
+                            console.log("previous ",result[i-1]);
+                            $scope.previousEpisode = result[i-1];
+                        }
+                    }
+                });
+            }
         };
 
     }
