@@ -1,18 +1,42 @@
 <ion-view view-title="Dashboard">
     <ion-content class="dashboard-container padding">
         <div class="row">
-            <div class="col col-75">
-                <h2 class="title padding">Series</h2>
+            <div class="col col-50">
+                <div class="item item-icon-left tittle">
+                    <i class="icon ion-android-star-outline"></i>
+                    <b>Estrenos de {{today}}</b>
+                </div>
             </div>
-            <div class="col col-25 button-align">
-                <button class="btn-floating btn-large waves-effect waves-light red"
-                    ng-click="go('tab.newProject')">
-                    <i class="icon ion-plus-round"></i>
-                </button>
+            <div class="col col-50">
+                <label class="item item-input">
+                  <i class="icon ion-search placeholder-icon"></i>
+                  <input type="search" placeholder="Search" ng-model="Search">
+                </label>
             </div>
         </div>
         <div class="row">
-            {{series.name}}
-        </div>
+            <div>
+                <div class="card list-card" ng-repeat="serie in series | filter:Search"
+                    ng-click="setCurrentSerie(serie)">
+                    <div class="card-image">
+                        <img class="size-image" ng-if="serie.show.image.original" 
+                            ng-src="{{serie.show.image.original}}">
+                    </div>
+                    <div class="item dark">
+                        <b>{{serie.show.name}}</b>
+                        <div>
+                            <b>Season:</b> {{serie.season}} <br>
+                            <b>Episodie:</b> {{serie.number}}<br>
+                            <b>Today:</b> {{serie.airdate}}
+                            <i class="icon ion-android-time"></i>
+                            {{serie.airtime}}
+                        <div>
+                        <div>
+                            <img class="size-flag" ng-if="serie.show.network.country.code == 'US'"ng-src="../img/us.png">
+                            <b>{{serie.show.network.name}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </ion-content>
 </ion-view>

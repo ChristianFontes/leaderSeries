@@ -9873,6 +9873,28 @@ a.button {
 .dashboard-container {
   background-size: cover;
   background: url("../img/b7.jpg") center; }
+  .dashboard-container .list-card {
+    float: left;
+    margin: 5px;
+    width: 240px;
+    height: 300px; }
+  .dashboard-container .size-image {
+    height: 160px;
+    max-width: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    margin-top: 5px; }
+  .dashboard-container .tittle {
+    background-color: transparent !important;
+    border: none; }
+  .dashboard-container .card {
+    background-color: transparent !important; }
+  .dashboard-container .item {
+    opacity: 0.8; }
+  .dashboard-container .size-flag {
+    width: 20px;
+    height: 20px; }
 
 .sideMenu-container {
   background-size: cover;
@@ -9880,3 +9902,39 @@ a.button {
   color: white; }
   .sideMenu-container .item {
     background-color: transparent !important; }
+
+.mySeries-container {
+  background-size: cover;
+  background: url("../img/b7.jpg") center; }
+
+.currentSerie-container {
+  background-size: cover;
+  background: url("../img/b7.jpg") center; }
+  .currentSerie-container .card {
+    background-color: transparent !important; }
+  .currentSerie-container .item {
+    opacity: 0.8; }
+  .currentSerie-container .size-card {
+    display: table;
+    margin: 0 auto;
+    padding-top: 10px;
+    width: 500px; }
+  .currentSerie-container .size-image {
+    max-width: 200px;
+    height: auto;
+    margin: 0 auto; }
+  .currentSerie-container .tittle {
+    text-align: center; }
+  .currentSerie-container .summary {
+    background-color: white;
+    text-align: justify;
+    opacity: 0.8;
+    padding-top: 10px;
+    margin-top: 10px;
+    text-align: center;
+    max-width: 500px; }
+  .currentSerie-container .list-item-card {
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px; }

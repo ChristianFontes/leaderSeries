@@ -6,8 +6,22 @@
     function controller($stateParams, $rootScope, $filter, $http, $scope, $window, $state, $sessionStorage, $ionicSideMenuDelegate, User, Series){
         $scope.go = go;
         $scope.user = {};
-        $scope.series = {};
+        $scope.series = [];
+        $scope.setCurrentSerie = setCurrentSerie;
+        $scope.currentSerie = {};
 
+        var today = new Date(),
+            day = today.getDate(),
+            month = today.getMonth() + 1,
+            year = today.getFullYear();
+
+        if(month < 10){
+            var scheduleToday = year+"-0"+month+"-"+day;
+            $scope.today = scheduleToday;
+        } else {
+            var scheduleToday = year+"-"+month+"-"+day;
+            $scope.today = scheduleToday;
+        }
 
         function go(path) {
             $state.go(path);
@@ -22,27 +36,17 @@
                 id: $sessionStorage.sessionUser.user.id
             }, function () {
                 $scope.user = user;
-
             });
-/*
-            var series = Series.get({id: '1'}, function () {
-                $scope.series = series;
-                console.log($scope.series);
-
+            
+            Series.schedule(null, scheduleToday).then(function(result) {
+                $scope.series = result;
             });
-
-            $http({
-              method: 'GET',
-              url: 'http://api.tvmaze.com/search/shows?q=girls'
-            }).then(function successCallback(response) {
-                $scope.series = series;
-                console.log("HTTP ",$scope.series);
-                // this callback will be called asynchronously
-                // when the response is available
-              }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-              });*/
         });
+
+        function setCurrentSerie(serie) {
+            $sessionStorage.currentSerie = serie;
+            console.log(serie);
+            $state.go('series.currentSerie');
+        }
     }
 })();

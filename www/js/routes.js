@@ -37,6 +37,24 @@
           controller: 'seriesDashboardController'
         }
       }
+    })
+    .state('series.mySeries', {
+      url: '/my-series',
+      views: {
+        'menuContent': {
+          templateUrl: 'modules/series/mySeries/mySeries.html',
+          controller: 'mySeriesController'
+        }
+      }
+    })
+    .state('series.currentSerie', {
+      url: '/current-serie',
+      views: {
+        'menuContent': {
+          templateUrl: 'modules/series/currentSerie/currentSerie.html',
+          controller: 'currentSerieController'
+        }
+      }
     });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/login');

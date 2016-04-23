@@ -15,17 +15,22 @@
             <h2 class="light">{{user.username}}</h2>
             <h7 class="light">{{user.email}}</h7>
           </div>
-        <h5 menu-close class="item item-icon-left light">
-          <i class="icon ion-android-clipboard"></i><b>My Series</b>
-        </h5>
-        
-        <h5 menu-close class="item item-icon-left light">
-          <i class="icon ion-android-search"></i><b>Search Series</b>
-        </h5>
 
-        <h5 menu-close class="item item-icon-left light">
+        <div menu-close class="item item-icon-left light" ng-click="go('series.Dashboard')">
+          <i class="icon ion-ios-keypad"></i><b>Dashboard</b>
+        </div>
+
+        <div menu-close class="item item-icon-left light" ng-click="go('series.mySeries')">
+          <i class="icon ion-android-clipboard"></i><b>My Series</b>
+        </div>
+        
+        <div menu-close class="item item-icon-left light">
+          <i class="icon ion-android-search"></i><b>Search Series</b>
+        </div>
+
+        <div menu-close class="item item-icon-left light">
           <i class="icon ion-person"></i><b>Account</b>
-        </h5>
+        </div>
       </ion-list>
     </div>
   </ion-side-menu>

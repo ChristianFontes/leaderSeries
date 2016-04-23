@@ -1,0 +1,65 @@
+<ion-view view-title="Show selected">
+    <ion-content class="currentSerie-container padding">
+        <div class="row">
+          <div class="col col-67">
+       		<div class="card size-card">
+       			<h3 class="tittle">
+       				{{currentSerie.show.name}}
+       			</h3>
+       			<div class="card-image">
+                  <img class="size-image"
+                    ng-src="{{currentSerie.show.image.original}}">
+                  <div class="item-icon-right">
+                    <button class="icon button button-icon ion-arrow-right-b" 
+                      ng-click="nextepisode();">
+                    </button>
+                  </div>
+                  <div class="item-icon-left">
+                    <button class="icon button button-icon ion-arrow-left-b" 
+                      ng-click="previousepisode();">
+                    </button>
+                  </div>
+                </div>
+                <div class="summary dark">
+                  <h4 class="tittle">
+                    {{currentSerie.name}}
+                    <hr>
+                  </h4>
+                  <div class="list-item-card">
+                    <b>SEASON:</b> {{currentSerie.season}}<br>
+                    <b>EPISODE:</b> {{currentSerie.number}}<br>
+                    <b>DATE:</b> {{currentSerie.airdate}} {{currentSerie.airtime}} 
+                    {{currentSerie.show.network.country.timezone}}<br>
+                    <b>CHANNEL:</b> {{currentSerie.show.network.name}}<br>
+                    <hr>
+                    <div ng-if="currentSerie.show.schedule.days[0]">
+                      <b>SCHEDULE: </b>
+                        {{currentSerie.show.schedule.days[0]}}
+                        {{currentSerie.show.schedule.days[1]}}
+                        {{currentSerie.show.schedule.days[2]}}
+                        {{currentSerie.show.schedule.days[3]}}
+                        {{currentSerie.show.schedule.days[4]}}
+                        {{currentSerie.show.schedule.days[5]}}
+                        {{currentSerie.show.schedule.days[6]}}<hr>
+                    </div>
+                      <b>{{summary}}</b>
+                  </div>
+                </div>
+       		</div>
+          </div>
+          <div class="col col-33">
+            <div class="card">
+              <div>
+                <h5 class="tittle">
+                New York City, United States
+                </h5>
+                <iframe src="http://www.zeitverschiebung.net/clock-widget-iframe?language=en&timezone=America%2FNew_York" width="100%" height="130" frameborder="0" seamless></iframe>
+                <div ng-repeat="episode in episodes | groupBy:'season'">
+                  {{episode.name}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </ion-content>
+</ion-view>
