@@ -9,6 +9,12 @@
         $scope.series = [];
         $scope.setCurrentSerie = setCurrentSerie;
         $scope.currentSerie = {};
+        $scope.selected = selected;
+        var seriesDaily = [];
+
+        var newYork = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
+        
+        console.log(newYork);
 
         var today = new Date(),
             day = today.getDate(),
@@ -40,8 +46,14 @@
             
             Series.schedule(null, scheduleToday).then(function(result) {
                 $scope.series = result;
+                seriesDaily.push(result);
             });
         });
+
+        function selected(serie){
+            Materialize.toast('Add a your list', 2500, 'rounded');
+            console.log(serie);
+        }
 
         function setCurrentSerie(serie) {
             $sessionStorage.currentSerie = serie;
