@@ -3,12 +3,12 @@
     angular.module('leaderSeries')
         .controller('currentSerieController', controller);
 
-    function controller($stateParams, $rootScope, $filter, $http, $scope, $window, $state, $sessionStorage, $ionicSideMenuDelegate, User, Series){
+    function controller($stateParams, $rootScope, $filter, $http, $scope, $window, $state, $sessionStorage, $ionicSideMenuDelegate, User, Series, Omdb){
         $scope.go = go;
         $scope.currentSerie = {};
         $scope.summary = {};
-        $scope.next = {};
-        $scope.previous = {};
+        $scope.arrowBack = false;
+        $scope.arrowNext = false;
 
         function go(path) {
             $state.go(path);
@@ -21,55 +21,75 @@
         $scope.$on('$ionicView.beforeEnter', function () {
             $scope.currentSerie = $sessionStorage.currentSerie;
             $scope.summary = $sessionStorage.currentSerie.show.summary.replace(/<\/?[^>]+>/gi, '');
-
-            showNextEpisode();
             showPreviousEpisode();
         });
 
         $scope.previousepisode = function() {
-            $scope.previous = $sessionStorage.currentSerie.show._links.previousepisode.href;
-            var previous = $scope.previous.replace(/[^0-9]/g, '');
+            
         };
 
         $scope.nextepisode = function() {
-            $scope.next = $sessionStorage.currentSerie.show._links.nextepisode.href;
-            var next = $scope.next.replace(/[^0-9]/g, '');
+            showNextEpisode();
         };
 
         function showNextEpisode() {
-            if($sessionStorage.currentSerie.show._links.nextepisode.href){
-                $scope.next = $sessionStorage.currentSerie.show._links.nextepisode.href;
-                var next = $scope.next.replace(/[^0-9]/g, '');
-
-                var episodeId = $sessionStorage.currentSerie.show.id;
-                Series.showEpisodeList(episodeId).then(function(result) {
-                    $scope.episodes = result;
-                    for (var i = 0; i < result.length; i++) {
-                        if(result[i].id == next){
-                            console.log("next ",result[i]);
-                            $scope.nextEpisode = result[i];
-                        }
-                    }
-                });
-            }
+            
         };
 
         function showPreviousEpisode() {
-            if($sessionStorage.currentSerie.show._links.previousepisode.href){
+            var numberCap = $sessionStorage.currentSerie.number,
+                serieName = $sessionStorage.currentSerie.show.name,
+                serieSeason = $sessionStorage.currentSerie.season,
+                imdb = $sessionStorage.currentSerie.show.externals.imdb;
 
-                $scope.previous = $sessionStorage.currentSerie.show._links.previousepisode.href;
-                var previous = $scope.previous.replace(/[^0-9]/g, '');
+            if(imdb){
+                if(numberCap == 1 && serieSeason > 1){
+                    serieSeason = serieSeason -1; 
+                    Omdb.showListId(imdb, serieSeason).then(function(result) {
+                        var listEpisodes = result.Episodes,
+                            lastElement = listEpisodes[listEpisodes.length - 1],
+                            lastEpisode = lastElement.Episode;
 
-                var episodeId = $sessionStorage.currentSerie.show.id;
-                Series.showEpisodeList(episodeId).then(function(result) {
-                    $scope.episodes = result;
-                    for (var i = 0; i < result.length; i++) {
-                        if(result[i].id == previous){
-                            console.log("previous ",result[i-1]);
-                            $scope.previousEpisode = result[i-1];
+                        Omdb.showEpisodeId(imdb, serieSeason, lastEpisode).then(function(result) {
+                            if(!(result.Response == "False")){
+                                $scope.previousEpisode = result;
+                                $scope.arrowBack = true;
+                            }
+                        });
+                    });
+                } else {
+                    numberCap = numberCap -1;
+                    Omdb.showEpisodeId(imdb, serieSeason, numberCap).then(function(result) {
+                        if(!(result.Response == "False")){
+                            $scope.previousEpisode = result; 
+                            $scope.arrowBack = true; 
                         }
-                    }
-                });
+                    });
+                }
+            } else {
+                if(numberCap == 1 && serieSeason > 1){
+                    serieSeason = serieSeason -1; 
+                    Omdb.showListSearch(serieName, serieSeason).then(function(result) {
+                        var listEpisodes = result.Episodes,
+                            lastElement = listEpisodes[listEpisodes.length - 1],
+                            lastEpisode = lastElement.Episode;
+
+                        Omdb.showEpisode(serieName, serieSeason, lastEpisode).then(function(result) {
+                            if(!(result.Response == "False")){
+                                $scope.previousEpisode = result;
+                                $scope.arrowBack = true;              
+                            }
+                        });
+                    });
+                } else {
+                    numberCap = numberCap -1;
+                    Omdb.showEpisode(serieName, serieSeason, numberCap).then(function(result) {   
+                        if(!(result.Response == "False")){
+                            $scope.previousEpisode = result;
+                            $scope.arrowBack = true; 
+                        }
+                    });
+                }
             }
         };
     }

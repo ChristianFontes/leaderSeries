@@ -9872,7 +9872,8 @@ a.button {
 
 .dashboard-container {
   background-size: cover;
-  background: url("../img/b4.jpg") center; }
+  background: url("../img/b4.jpg") center;
+  margin-bottom: 40px; }
   .dashboard-container .list-card {
     float: left;
     margin: 5px;

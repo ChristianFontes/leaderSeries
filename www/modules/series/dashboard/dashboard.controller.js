@@ -3,16 +3,33 @@
     angular.module('leaderSeries')
         .controller('seriesDashboardController', controller);
 
-    function controller($stateParams, $rootScope, $filter, $http, $scope, $window, $state, $sessionStorage, $ionicSideMenuDelegate, User, Series){
+    function controller(
+        $stateParams, $rootScope, $filter, $http, $scope, $window, mySeries, 
+        $state, $sessionStorage, $ionicSideMenuDelegate, User, Series){
         $scope.go = go;
         $scope.user = {};
         $scope.series = [];
         $scope.setCurrentSerie = setCurrentSerie;
         $scope.currentSerie = {};
         $scope.selected = selected;
-        var seriesDaily = [];
+        $sessionStorage.oneTime = 0;
+        $scope.data = {};
+        $scope.data.serie_id = {};
 
-        var newYork = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
+        if($sessionStorage.oneTime == 0){
+            Series.schedule(null, scheduleToday).then(function(result) {
+                $sessionStorage.schedule = result;
+                $scope.series = $sessionStorage.schedule;
+            });
+            $sessionStorage.oneTime = 1;
+        }
+
+        var user = User.get({id: $sessionStorage.sessionUser.user.id}, function () {
+            $scope.user = user;
+        });
+        
+
+        var newYork = new Date().toLocaleString("en-GB", {timeZone: "America/New_York"});
         
         console.log(newYork);
 
@@ -37,22 +54,22 @@
             $ionicSideMenuDelegate.toggleLeft();
         };
 
-        $scope.$on('$ionicView.beforeEnter', function () {
-            var user = User.get({
-                id: $sessionStorage.sessionUser.user.id
-            }, function () {
-                $scope.user = user;
-            });
-            
-            Series.schedule(null, scheduleToday).then(function(result) {
-                $scope.series = result;
-                seriesDaily.push(result);
-            });
-        });
-
         function selected(serie){
-            Materialize.toast('Add a your list', 2500, 'rounded');
-            console.log(serie);
+            $scope.data.serie = serie;
+            $scope.data.serie_id = serie.id;
+            $scope.data.owners = $sessionStorage.sessionUser.user.id;
+
+            if(serie.show.externals.imdb != null){
+                $scope.data.imdb = serie.show.externals.imdb;
+            }
+            var serie = new mySeries ($scope.data);
+            serie.$save(function(response) {
+                Materialize.toast('Add a your list', 2500, 'rounded');
+                $scope.data = {};
+            }, function(error) {
+                Materialize.toast('Already in your list', 2500, 'rounded');
+                $scope.data = {};
+            });
         }
 
         function setCurrentSerie(serie) {

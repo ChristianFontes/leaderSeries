@@ -3,8 +3,6 @@
     angular.module('leaderSeries')
         .factory('Series', function ($resource, apiSeries) {
             
-            var rootURL = "http://api.tvmaze.com";
-              
               function getJSON(url) {
                 return new Promise(function(resolve, reject){
                   var req = new XMLHttpRequest();
@@ -26,20 +24,20 @@
               }
               
               function showSearch(query) {
-                return getJSON(rootURL + "/search/shows?q=" + encodeURIComponent(query));
+                return getJSON(apiSeries.URL + "/search/shows?q=" + encodeURIComponent(query));
               }
               
               function singleSearch(query) {
-                return getJSON(rootURL + "/singlesearch/shows?q=" +
+                return getJSON(apiSeries.URL + "/singlesearch/shows?q=" +
                   encodeURIComponent(query));
               }
               
               function showLookup(id, source) {
-                return getJSON(rootURL + "/lookup/shows?" + source + "=" + id);
+                return getJSON(apiSeries.URL + "/lookup/shows?" + source + "=" + id);
               }
 
               function peopleSearch(query) {
-                return getJSON(rootURL + "/search/people?q=" + encodeURIComponent(query));
+                return getJSON(apiSeries.URL + "/search/people?q=" + encodeURIComponent(query));
               }
 
               function schedule(countryCode, date) {
@@ -53,15 +51,15 @@
                 else if (!countryCode && date) {
                   schedURL += "?date=" + date;
                 }
-                return getJSON(rootURL + schedURL);
+                return getJSON(apiSeries.URL + schedURL);
               }
               
               function fullSchedule() {
-                return getJSON(rootURL + "/schedule/full");
+                return getJSON(apiSeries.URL + "/schedule/full");
               }
 
               function shows(id) {
-                return getJSON(rootURL + "/shows/" + id);
+                return getJSON(apiSeries.URL + "/shows/" + id);
               }
 
               function showEpisodeList(id, specials) {
@@ -69,28 +67,28 @@
                 if (specials) {
                   apiURL += "?specials=1";
                 }
-                return getJSON(rootURL + apiURL);
+                return getJSON(apiSeries.URL + apiURL);
               }
 
               function episodeByNumber(id, season, episode) {
-                return getJSON(rootURL + "/shows/" + id + "/episodebynumber?season=" +
+                return getJSON(apiSeries.URL + "/shows/" + id + "/episodebynumber?season=" +
                   season + "&number=" + episode);
               }
 
               function episodeByDate(id, date) {
-                return getJSON(rootURL + "/shows/" + id + "/episodesbydate?date=" + date);
+                return getJSON(apiSeries.URL + "/shows/" + id + "/episodesbydate?date=" + date);
               }
 
               function showCast(id) {
-                return getJSON(rootURL + "/shows/" + id + "/cast");
+                return getJSON(apiSeries.URL + "/shows/" + id + "/cast");
               }
 
               function showAKAs(id) {
-                return getJSON(rootURL + "/shows/" + id + "/akas");
+                return getJSON(apiSeries.URL + "/shows/" + id + "/akas");
               }
 
               function showIndex(pageNumber) {
-                return getJSON(rootURL + "/shows?page=" + pageNumber);
+                return getJSON(apiSeries.URL + "/shows?page=" + pageNumber);
               }
 
               function personInfo(id, embed) {
@@ -98,7 +96,7 @@
                 if (embed) {
                   apiURL += "?embed=castcredits";
                 }
-                return getJSON(rootURL + apiURL);
+                return getJSON(apiSeries.URL + apiURL);
               }
 
               function personCastCredits(id, embed) {
@@ -106,7 +104,7 @@
                 if (embed) {
                   apiURL += "?embed=show";
                 }
-                return getJSON(rootURL + apiURL);
+                return getJSON(apiSeries.URL + apiURL);
               }
 
               function personCrewCredits(id, embed) {
@@ -114,11 +112,11 @@
                 if (embed) {
                   apiURL += "?embed=show";
                 }
-                return getJSON(rootURL + apiURL);
+                return getJSON(apiSeries.URL + apiURL);
               }
 
               function showUpdates() {
-                return getJSON(rootURL + "/updates/shows");
+                return getJSON(apiSeries.URL + "/updates/shows");
               }
               var publicAPI = {
                 showSearch: showSearch,
