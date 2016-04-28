@@ -42,7 +42,25 @@
       url: '/my-series',
       views: {
         'menuContent': {
-          templateUrl: 'modules/series/mySeries/mySeries.html',
+          templateUrl: 'modules/series/mySeries/series/mySeries.html',
+          controller: 'mySeriesController'
+        }
+      }
+    })
+    .state('series.mySeriesEpisodes', {
+      url: '/my-series-episodes',
+      views: {
+        'menuContent': {
+          templateUrl: 'modules/series/mySeries/series/episodes/episodes.html',
+          controller: 'episodesController'
+        }
+      }
+    })
+    .state('series.mySeriesToday', {
+      url: '/my-series-today',
+      views: {
+        'menuContent': {
+          templateUrl: 'modules/series/mySeries/seriesToday/mySeriesToday.html',
           controller: 'mySeriesController'
         }
       }

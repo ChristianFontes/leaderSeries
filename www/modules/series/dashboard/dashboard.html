@@ -18,7 +18,6 @@
             <div>
                 <div class="card list-card" ng-repeat="serie in series | filter:{airdate:today} | filter:search">
                     <ion-checkbox ng-click="selected(serie);">
-                    <!-- ng-click="selected(serie); {{serie.show.name}}" -->
                         {{serie.show.name}}
                     </ion-checkbox>
                     <div ng-click="setCurrentSerie(serie)">

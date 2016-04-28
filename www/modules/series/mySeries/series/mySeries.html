@@ -1,0 +1,28 @@
+<ion-view view-title="My Series List">
+    <ion-content class="mySeries-container">
+        <div class="row">
+	        <div class="col">
+	        	<div class="list">
+				    <div class="item item-thumbnail-left" ng-repeat="series in user.series"
+				    	ng-click="setCurrentSerie(series)">
+					    <img class="size-image" ng-if="series.serie.show.image.original" 
+		                    ng-src="{{series.serie.show.image.original}}">
+		                <img class="size-image" 
+		                    ng-if="!series.serie.show.image.original && 
+		                    series.serie.image.original"
+		                    ng-src="{{series.serie.image.original}}">
+		                <img class="size-image" 
+		                    ng-if="!series.serie.show.image.original && 
+		                    !series.serie.image.original"
+		                    ng-src="../img/noImage.png">
+		                
+						<h2>{{series.serie.show.name}}</h2>
+
+						<p>My history</p>
+						<p>1x03 Agua-Fuego</p>
+				    </div>
+				</div>
+	        </div>
+		</div>
+    </ion-content>
+</ion-view>

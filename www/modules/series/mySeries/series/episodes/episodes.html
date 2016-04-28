@@ -1,0 +1,22 @@
+<ion-view view-title="Episodes List">
+    <ion-content class="episodes-container">
+    <!--
+        <div class="col">
+        	<div class="light" ng-repeat="episode in episodes">
+	        	{{episode.name}}
+	        </div>
+		</div> -->
+		<div class="row">
+		<div class="col col-75">
+		<ul class="collapsible" data-collapsible="accordion">
+		    <li ng-repeat="episode in episodes">
+		      <div class="collapsible-header"><i class="icon ion-android-film"></i>
+		      	{{episode.season}}
+		      </div>
+		      <div class="collapsible-body light"><p>Lorem ipsum dolor sit amet.</p></div>
+		    </li>
+		</ul>
+		</div>
+		</div>
+    </ion-content>
+</ion-view>

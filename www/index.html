@@ -16,6 +16,8 @@
     <script src="lib/Materialize/dist/js/materialize.min.js"></script>
     <script src="lib/ngstorage/ngStorage.js"></script>
     <script src="lib/angular-resource/angular-resource.js"></script>
+    <script src="lib/moment/moment.js"></script>
+    <script src="lib/moment-timezone/moment-timezone.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -33,13 +35,15 @@
     <script src="resources/series.service.js"></script>
     <script src="resources/omdb.service.js"></script>
     <script src="resources/mySeries.service.js"></script>
+    <script src="resources/progressSeries.service.js"></script>
 
     <!-- controllers -->
     <script src="modules/login/login.controller.js"></script>
     <script src="modules/signup/signup.controller.js"></script>
     <script src="modules/series/dashboard/dashboard.controller.js"></script>
-    <script src="modules/series/mySeries/mySeries.controller.js"></script>
+    <script src="modules/series/mySeries/series/mySeries.controller.js"></script>
     <script src="modules/series/currentSerie/currentSerie.controller.js"></script>
+    <script src="modules/series/mySeries/series/episodes/episodes.controller.js"></script>
   </head>
   <body ng-app="leaderSeries">
     <ion-nav-view></ion-nav-view>

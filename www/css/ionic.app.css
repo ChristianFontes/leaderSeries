@@ -9872,7 +9872,7 @@ a.button {
 
 .dashboard-container {
   background-size: cover;
-  background: url("../img/b4.jpg") center;
+  background: url("../img/fondo-mini.jpg") center;
   margin-bottom: 40px; }
   .dashboard-container .list-card {
     float: left;
@@ -9903,6 +9903,10 @@ a.button {
   color: white; }
   .sideMenu-container .item {
     background-color: transparent !important; }
+  .sideMenu-container .myTabStyle {
+    background-color: #1b4d71 !important; }
+  .sideMenu-container .myTabStyle:hover {
+    background-color: #098aba !important; }
 
 .mySeries-container {
   background-size: cover;
@@ -9938,3 +9942,8 @@ a.button {
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 10px; }
+
+.episodes-container {
+  background-size: cover;
+  background: url("../img/b4.jpg") center;
+  margin-bottom: 40px; }

@@ -62,11 +62,9 @@
                 return getJSON(apiSeries.URL + "/shows/" + id);
               }
 
-              function showEpisodeList(id, specials) {
+              function showEpisodeList(id) {
                 var apiURL = "/shows/" + id + "/episodes";
-                if (specials) {
-                  apiURL += "?specials=1";
-                }
+                
                 return getJSON(apiSeries.URL + apiURL);
               }
 
