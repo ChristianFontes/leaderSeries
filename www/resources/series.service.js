@@ -64,7 +64,11 @@
 
               function showEpisodeList(id) {
                 var apiURL = "/shows/" + id + "/episodes";
-                
+                return getJSON(apiSeries.URL + apiURL);
+              }
+
+              function showSeasonList(id) {
+                var apiURL = "/shows/" + id + "/seasons";
                 return getJSON(apiSeries.URL + apiURL);
               }
 
@@ -133,7 +137,8 @@
                 personInfo: personInfo,
                 personCastCredits: personCastCredits,
                 personCrewCredits: personCrewCredits,
-                showUpdates: showUpdates
+                showUpdates: showUpdates,
+                showSeasonList: showSeasonList
               };
               return publicAPI;
         });

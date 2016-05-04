@@ -8,6 +8,7 @@
     "Materialize": "materialize#~0.97.6",
     "ngstorage": "^0.3.10",
     "angular-resource": "^1.5.5",
-    "moment-timezone": "^0.5.3"
+    "moment-timezone": "^0.5.3",
+    "ng-group": "^0.9.0"
   }
 }

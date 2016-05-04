@@ -7,7 +7,8 @@
                     update: {
                         method: 'PUT'
                     }
-                });
+                }
+            );
             return res;
         });
 })();

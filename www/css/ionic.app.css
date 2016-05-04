@@ -9870,30 +9870,30 @@ a.button {
   .signup-container .center-botton {
     text-align: center; }
 
-.dashboard-container {
+.premieres-container {
   background-size: cover;
   background: url("../img/fondo-mini.jpg") center;
   margin-bottom: 40px; }
-  .dashboard-container .list-card {
+  .premieres-container .list-card {
     float: left;
     margin: 5px;
     width: 240px;
     height: auto; }
-  .dashboard-container .size-image {
+  .premieres-container .size-image {
     height: 160px;
     max-width: 160px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 5px;
     margin-top: 5px; }
-  .dashboard-container .tittle {
+  .premieres-container .tittle {
     background-color: transparent !important;
     border: none; }
-  .dashboard-container .card {
+  .premieres-container .card {
     background-color: transparent !important; }
-  .dashboard-container .item {
+  .premieres-container .item {
     opacity: 0.8; }
-  .dashboard-container .size-flag {
+  .premieres-container .size-flag {
     width: 20px;
     height: 20px; }
 
@@ -9947,3 +9947,53 @@ a.button {
   background-size: cover;
   background: url("../img/b4.jpg") center;
   margin-bottom: 40px; }
+  .episodes-container .list .item.item-accordion {
+    line-height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: 0.09s all linear; }
+  .episodes-container .list .item.item-accordion.ng-hide {
+    line-height: 0px; }
+  .episodes-container .list .item.item-accordion.ng-hide-add,
+  .episodes-container .list .item.item-accordion.ng-hide-remove {
+    display: block !important; }
+  .episodes-container .body-card {
+    padding-left: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px; }
+  .episodes-container .list-episodes {
+    padding-right: 35px; }
+  .episodes-container .date-list-episodes {
+    padding-right: 35px;
+    text-align: right; }
+  .episodes-container .align-image {
+    padding-left: 15%; }
+
+.dashboard-container {
+  background-size: cover;
+  background: url("../img/b4.jpg") center; }
+  .dashboard-container .list-card {
+    float: left;
+    margin: 5px;
+    width: 240px;
+    height: auto; }
+  .dashboard-container .cardleft {
+    float: left;
+    width: 500px;
+    height: 300px;
+    margin-right: 30px;
+    margin-left: 30px;
+    border-radius: 20%; }
+  .dashboard-container .cardright {
+    float: left;
+    width: 500px;
+    height: 300px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border-radius: 20%; }
+  .dashboard-container .intoCard {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 25%;
+    margin-bottom: 25%; }

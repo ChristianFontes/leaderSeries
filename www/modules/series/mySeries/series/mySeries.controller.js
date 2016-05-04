@@ -21,9 +21,9 @@
 
         var user = User.get({id: $sessionStorage.sessionUser.user.id}, function () {
             $scope.user = user;
-
+            /*
             for (var series in $scope.user.series) {
-                /*
+                
                 if($scope.user.series[series].imdb){
                     var id = $scope.user.series[series].imdb,
                         season = $scope.user.series[series].serie.season,
@@ -34,9 +34,9 @@
                         $scope.omdb = result;
                         console.log(result);
                     });
-                }*/
+                }
                 
-            }
+            }*/
             /*
             Omdb.showEpisodeId(431, "1994-09-22").then(function(result) {
               console.log(result);

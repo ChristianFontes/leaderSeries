@@ -1,0 +1,52 @@
+<ion-view view-title="Premieres">
+    <ion-content class="premieres-container padding">
+        <div class="row">
+            <div class="col col-50">
+                <div class="item item-icon-left tittle light">
+                    <i class="icon ion-android-star-outline"></i>
+                    <b>Estrenos de {{today}}</b>
+                </div>
+            </div>
+            <div class="col col-50">
+                <label class="item item-input">
+                  <i class="icon ion-search placeholder-icon"></i>
+                  <input type="search" placeholder="Search" ng-model="search">
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <div class="card list-card" ng-repeat="serie in series | filter:{airdate:today} | filter:search">
+                    <ion-checkbox ng-click="selected(serie);">
+                        {{serie.show.name}}
+                    </ion-checkbox>
+                    <div ng-click="setCurrentSerie(serie)">
+                        <div class="card-image">
+                            <img class="size-image" ng-if="serie.show.image.original" 
+                                ng-src="{{serie.show.image.original}}">
+                            <img class="size-image" 
+                                ng-if="!serie.show.image.original && serie.image.original"
+                                ng-src="{{serie.image.original}}">
+                            <img class="size-image" 
+                                ng-if="!serie.show.image.original && !serie.image.original"
+                                ng-src="../img/noImage.png">
+                        </div>
+                        <div class="item dark">
+                            <b>{{serie.name}}</b><hr>
+                            <div>
+                                <b>Season:</b> {{serie.season}} <br>
+                                <b>Episodie:</b> {{serie.number}}<br>
+                                <b>Today:</b> {{serie.airdate}}
+                                <i class="icon ion-android-time"></i>
+                                {{serie.airtime}}
+                            <div>
+                            <div>
+                                <img class="size-flag" ng-if="serie.show.network.country.code == 'US'"ng-src="../img/us.png">
+                                <b>{{serie.show.network.name}}</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </ion-content>
+</ion-view>

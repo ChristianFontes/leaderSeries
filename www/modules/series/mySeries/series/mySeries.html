@@ -1,5 +1,14 @@
 <ion-view view-title="My Series List">
     <ion-content class="mySeries-container">
+    	<div class="row">
+    		<div class="col">
+    		<button class="btn waves-effect waves-light" 
+    			type="submit" name="action" ng-click="go('series.addSeries');">
+    			Add Serie
+			    <i class="icon ion-grid right"></i>
+			</button>
+			</div>
+    	</div>
         <div class="row">
 	        <div class="col">
 	        	<div class="list">
@@ -15,7 +24,7 @@
 		                    ng-if="!series.serie.show.image.original && 
 		                    !series.serie.image.original"
 		                    ng-src="../img/noImage.png">
-		                
+
 						<h2>{{series.serie.show.name}}</h2>
 
 						<p>My history</p>

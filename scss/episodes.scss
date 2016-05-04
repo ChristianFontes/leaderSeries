@@ -2,4 +2,33 @@
   background-size: cover;
   background: url('../img/b4.jpg') center;
   margin-bottom: 40px;
+
+  	.list .item.item-accordion {
+	  line-height: 38px;
+	  padding-top: 0;
+	  padding-bottom: 0;
+	  transition: 0.09s all linear;
+	}
+	.list .item.item-accordion.ng-hide {
+	  line-height: 0px;
+	}
+	.list .item.item-accordion.ng-hide-add,
+	.list .item.item-accordion.ng-hide-remove {
+	  display: block !important;
+	}
+	.body-card {
+		padding-left: 25px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	.list-episodes {
+		padding-right: 35px;
+	}
+	.date-list-episodes {
+		padding-right: 35px;
+		text-align: right;
+	}
+	.align-image {
+		padding-left: 15%;
+	}
 }

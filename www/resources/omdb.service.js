@@ -24,7 +24,7 @@
               }
 
               function showSearch(query) {
-                return getJSON(omdbApi.URL + "/?i=" + encodeURIComponent(query));
+                return getJSON(omdbApi.URL + "/?s=" + encodeURIComponent(query));
               }
 
               function showEpisode(query, season, episode) {

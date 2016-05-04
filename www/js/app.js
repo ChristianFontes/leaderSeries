@@ -7,7 +7,8 @@
 angular.module('leaderSeries', [
   'ionic',
   'ngStorage',
-  'ngResource'
+  'ngResource',
+  'ng.group'
 ])
 
 .run(function ($ionicPlatform, $location, $state, $rootScope, $ionicHistory, AuthService) {
