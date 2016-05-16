@@ -2,40 +2,44 @@
     <ion-content class="episodes-container">
 		<div class="row">
 		<ion-list class="col col-75">
-        <div ng-repeat="season in seasons">
+		<nav>
+			<div class="nav-wrapper">
+				<h4 class="title-card light"><b>Seasons & Episodes</b></h4>
+			</div>
+		</nav>
+        <div ng-repeat="season in listSeasons">
           	<ion-item class="item-stable"
                     ng-click="toggleGroup(season)"
                     ng-class="{active: isGroupShown(season)}">
             	<i class="icon" ng-class="isGroupShown(season) ? 'ion-minus' : 'ion-plus'"></i>
             	Season {{season.number}}
+            	<!--
             	<div class="item-icon-right"
             		ng-click="toggleEye(season)"
                    	ng-class="{active: view(season)}">
                     <button class="icon button button-icon ion-eye">
                     </button>
                 </div>
+                -->
           	</ion-item>
           	<div class="item-accordion"
-                ng-repeat="episode in episodes" 
-                ng-if="season.number == episode.season"
+                ng-repeat="episode in listEpisodes | filter:{ season:season.number }"
                 ng-show="isGroupShown(season)">
-                <div class="item item-thumbnail-left">
-				    <img class="size-image" 
-	                    ng-src="{{episode.image.medium}}">
-	                <h2>{{episode.name}}</h2>
-	                <p class="list-episodes">{{episode.summary}}</p>
-	                <div class="item-icon-right"
+                <div class="item item-text-wrap">
+	                <h2>{{season.number}}x{{episode.number}}: 
+	                	<color><b>{{episode.name}}</b></color>
+	                </h2>
+	                <div class="item-icon-right" 
+	                	ng-repeat="progress in progressSeries"
 	                	ng-click="toggleEye(episode)">
-	                	<i class="icon" 
-	                		ng-if="episode.show" 
-	                		ng-class="'ion-eye-disabled'">
+	                	<i class="icon ion-eye-disabled"
+	                		ng-if="episode.id == progress.episodeId">
                 		</i>
-                		<i class="icon" 
-                			ng-if="!episode.show" 
-                			ng-class="'ion-eye'">
+                		<i class="icon ion-eye"
+                			ng-if="episode.id != progress.episodeId">
                 		</i>
             		</div>
-            		<h3 class="date-list-episodes">{{episode.airdate}} {{episode.airtime}}</h3>
+            		<h3>{{episode.airstamp | date:"MMM/dd/yyyy 'at' h:mma"}}</h3>
 	            </div>
           	</div>
         </div>
@@ -75,10 +79,6 @@
 				</li>
 			</ul>
       	</div>
-      	</div>
-      	<div ng-repeat="episode in listEpisodes">
-      		
-      		<div >{{episode.season}}</div>
       	</div>
     </ion-content>
 </ion-view>

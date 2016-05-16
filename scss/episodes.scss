@@ -1,6 +1,6 @@
 .episodes-container{
   background-size: cover;
-  background: url('../img/b4.jpg') center;
+  background-color: #009688;
   margin-bottom: 40px;
 
   	.list .item.item-accordion {
@@ -30,5 +30,19 @@
 	}
 	.align-image {
 		padding-left: 15%;
+	}
+	color {
+	    color: #3C948B;
+	    font-style: italic;
+	}
+	h3 {
+		color: #4E4E4E;
+		text-align: right;
+		padding-right: 50px;
+	}
+	.title-card {
+		padding-top: 20px;
+		margin-left: 25px;
+		font-style: italic;
 	}
 }

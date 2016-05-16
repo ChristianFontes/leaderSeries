@@ -1,13 +1,13 @@
 <ion-view view-title="Premieres">
     <ion-content class="premieres-container padding">
         <div class="row">
-            <div class="col col-50">
+            <div class="col col-70">
                 <div class="item item-icon-left tittle light">
                     <i class="icon ion-android-star-outline"></i>
-                    <b>Estrenos de {{today}}</b>
+                    <b>Premieres {{getToday | date:'EEEE, MMMM d, y'}}</b>
                 </div>
             </div>
-            <div class="col col-50">
+            <div class="col col-30">
                 <label class="item item-input">
                   <i class="icon ion-search placeholder-icon"></i>
                   <input type="search" placeholder="Search" ng-model="search">
@@ -16,9 +16,10 @@
         </div>
         <div class="row">
             <div>
-                <div class="card list-card" ng-repeat="serie in series | filter:{airdate:today} | filter:search">
+                <div class="card list-card" ng-repeat="serie in series | filter:{airdate:getToday} | filter:search"
+                ng-if="serie.show.externals.imdb">
                     <ion-checkbox ng-click="selected(serie);">
-                        {{serie.show.name}}
+                        <h7 class="title-card"><b>{{serie.show.name}}</b></h7>
                     </ion-checkbox>
                     <div ng-click="setCurrentSerie(serie)">
                         <div class="card-image">
@@ -29,16 +30,14 @@
                                 ng-src="{{serie.image.original}}">
                             <img class="size-image" 
                                 ng-if="!serie.show.image.original && !serie.image.original"
-                                ng-src="../img/noImage.png">
+                                ng-src="/img/noImage.png">
                         </div>
                         <div class="item dark">
-                            <b>{{serie.name}}</b><hr>
+                            <title-card><b>{{serie.name}}</b></title-card>
                             <div>
                                 <b>Season:</b> {{serie.season}} <br>
                                 <b>Episodie:</b> {{serie.number}}<br>
-                                <b>Today:</b> {{serie.airdate}}
-                                <i class="icon ion-android-time"></i>
-                                {{serie.airtime}}
+                                <b>Today:</b> {{serie.airstamp | date:'MMM d, y h:mm a'}}
                             <div>
                             <div>
                                 <img class="size-flag" ng-if="serie.show.network.country.code == 'US'"ng-src="../img/us.png">

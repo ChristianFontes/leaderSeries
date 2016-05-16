@@ -1,39 +1,92 @@
 .currentSerie-container{
 	background-size: cover;
-	background: url('../img/b7.jpg') center;
-
+	background-color: #009688;
+  margin-bottom: 40px;
 	.card {
-		background-color: transparent !important;
+    text-align: justify;
+    padding-left: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-right: 25px;
 	}
 	.item{
 		opacity: 0.8;
 	}
-  	.size-card{
-  		display: table;
-    	margin: 0 auto;
-    	padding-top: 10px;
-      width:500px;
-  	}
-  	.size-image{
-  		max-width: 200px;
-  		height: auto;
-  		margin: 0 auto;
-  	}
-  	.tittle{
-  		text-align: center;
-  	}
-  	.summary{
-  		background-color: white;
-  		opacity: 0.8;
-  		padding-top: 10px;
-  		margin-top: 10px;
-  		text-align: center;
-  		max-width: 500px;
-  	}
-    .list-item-card{
-      text-align: left;
-      padding-left: 20px;
-      padding-right: 20px;
-      padding-bottom: 10px;
-    }
+	.size-card{
+		display: table;
+  	margin: 0 auto;
+  	padding-top: 10px;
+    width:500px;
+	}
+	.size-image{
+		max-width: 200px;
+		height: auto;
+		margin: 0 auto;
+	}
+	.tittle{
+		text-align: center;
+	}
+	.summary{
+		background-color: white;
+		opacity: 0.8;
+		padding-top: 10px;
+		margin-top: 10px;
+		text-align: center;
+		max-width: 500px;
+	}
+  .list-item-card{
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+  }
+  .title-nav {
+    margin-left: 25px;
+    padding-top: 15px;
+    color: #ffffff;
+    font-style: italic;
+  }
+  .ul-nav {
+    margin-top: -30px;
+    padding-right: 25px;
+  }
+  .text-in-box {
+    text-align: justify;
+  }
+  channel {
+    color: #3C948B;
+    font-style: italic;
+  }
+  weekday {
+    padding-left: 0%;
+  }
+  td {
+    padding-top: 10px;
+    padding-left: 25px;
+    padding-bottom: 10px;
+  }
+  tr {
+    background-color: #ffffff;
+  }
+  th {
+    padding-left: 25px;
+    font-style: italic;
+  }
+  .today {
+    color: #3C948B;
+    font-style: italic;
+  }
+  .soon {
+    color: red;
+    font-style: italic;
+  }
+  .separe {
+    padding-left: 80px;
+  }
+  .card-style {
+    border-radius: 10%;
+  }
+  .separate-table {
+    padding-top: 10px;
+  }
 }

@@ -12,9 +12,10 @@
                     if (req.status == 200) {
                       resolve(req.response);
                     }
+                    /*
                     else {
                       reject(Error(req.statusText));
-                    }
+                    }*/
                   };
                   req.onerror = function() {
                     reject(Error("Network Error"));
@@ -120,6 +121,20 @@
               function showUpdates() {
                 return getJSON(apiSeries.URL + "/updates/shows");
               }
+
+              function showByImdb(id) {
+                return getJSON(apiSeries.URL + "/lookup/shows?imdb=" + id);
+              }
+
+              function episodesByDate(id, date) {
+                return getJSON(apiSeries.URL + "/shows/" + id + 
+                  "/episodesbydate?date=" + date);
+              }
+
+              function nextEpisode(id) {
+                return getJSON(apiSeries.URL + "/shows/" + id + "?embed=nextepisode");
+              }
+
               var publicAPI = {
                 showSearch: showSearch,
                 singleSearch: singleSearch,
@@ -138,7 +153,10 @@
                 personCastCredits: personCastCredits,
                 personCrewCredits: personCrewCredits,
                 showUpdates: showUpdates,
-                showSeasonList: showSeasonList
+                showSeasonList: showSeasonList,
+                showByImdb: showByImdb,
+                episodesByDate: episodesByDate,
+                nextEpisode: nextEpisode
               };
               return publicAPI;
         });

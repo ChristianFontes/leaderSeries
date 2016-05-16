@@ -1,76 +1,100 @@
 <ion-view view-title="Show selected" view-cached="false">
     <ion-content class="currentSerie-container padding">
         <div class="row">
+          <nav>
+            <div class="nav-wrapper">
+              <h3 class="title-nav">{{currentSerie.show.name}}</h3>
+              <ul class="right hide-on-med-and-down ul-nav">
+                <li ng-click="casting(currentSerie)"><b>CAST</b></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
           <div class="col col-25">
-            <div class="summary dark" ng-if="previousEpisode">
-              Previous Episode<hr>
-              <div class="list-item-card">
-                <b>Tittle:</b> {{previousEpisode.Title}}<br>
-                <b>Season:</b> {{previousEpisode.Season}}<br>
-                <b>Episode:</b> {{previousEpisode.Episode}}<br>
-                <b>Date:</b> {{previousEpisode.Released}}<br>
-                <b>Plot:</b> {{previousEpisode.Plot}}
-                
-              </div>
+            <div class="size-card">
+              <img src="{{currentSerie.show.image.medium}}">
             </div>
           </div>
-          <div class="col col-50">
-       		<div class="card size-card">
-       			<h3 class="tittle">
-       				{{currentSerie.show.name}}
-       			</h3>
-       			<div class="card-image">
-                  <img class="size-image"
-                    ng-src="{{currentSerie.show.image.original}}">
-                  <div class="item-icon-right">
-                    <button class="icon button button-icon ion-arrow-right-b" 
-                      ng-click="nextepisode();">
-                    </button>
-                  </div>
-                  <div class="item-icon-left">
-                    <button class="icon button button-icon ion-arrow-left-b" 
-                      ng-click="previousepisode();">
-                    </button>
-                  </div>
+          <div class="col col-33 text-in-box dark">
+            <div class="card">
+              {{summary}}
             </div>
-            <div class="summary dark">
-              <h4 class="tittle">
-                {{currentSerie.name}}
-                <hr>
-              </h4>
-              <div class="list-item-card">
-                <b>SEASON:</b> {{currentSerie.season}}<br>
-                <b>EPISODE:</b> {{currentSerie.number}}<br>
-                <b>DATE:</b> {{currentSerie.airdate}} {{currentSerie.airtime}} 
-                {{currentSerie.show.network.country.timezone}}<br>
-                <b>CHANNEL:</b> {{currentSerie.show.network.name}}<br>
-                <hr>
-                <div ng-if="currentSerie.show.schedule.days[0]">
-                  <b>SCHEDULE: </b>
-                    {{currentSerie.show.schedule.days[0]}}
-                    {{currentSerie.show.schedule.days[1]}}
-                    {{currentSerie.show.schedule.days[2]}}
-                    {{currentSerie.show.schedule.days[3]}}
-                    {{currentSerie.show.schedule.days[4]}}
-                    {{currentSerie.show.schedule.days[5]}}
-                    {{currentSerie.show.schedule.days[6]}}<hr>
-                </div>
-                  <b>{{summary}}</b>
-              </div>
-            </div>
-       		</div>
           </div>
-          <div class="col col-25" ng-if="nextEpisode">
-            <div class="summary dark">
-              Next Episode<hr>
-              <div class="list-item-card">
-                <b>Tittle:</b> {{nextEpisode.name}}<br>
-                <b>Season:</b> {{nextEpisode.season}}<br>
-                <b>Episode:</b> {{nextEpisode.number}}<br>
-                <b>Date:</b> {{nextEpisode.airdate}}
-                {{nextEpisode.airtime}}<br>
-              </div>
+          <div class="col col-40 separe">
+            <div class="card card-style">
+              <h3>Show Information</h3>
+              <h5>Airs on: 
+                <img src="/img/usa.png">
+                <channel>{{currentSerie.show.network.name}}</channel>
+              </h5>
+              <h5 ng-if="currentSerie.show.genres[0]">
+                Genres: 
+                  {{currentSerie.show.genres[0]}}
+                  {{currentSerie.show.genres[1]}}
+                  {{currentSerie.show.genres[2]}}
+                  {{currentSerie.show.genres[3]}}
+                  {{currentSerie.show.genres[4]}}
+              </h5>
+              <h5 ng-if="currentSerie.show.status">
+                Status:
+                {{currentSerie.show.status}}
+              </h5>
+              <h5 ng-if="currentSerie.show.rating.average">
+                Rating:
+                {{currentSerie.show.rating.average}}
+              </h5>
+              <h5 ng-if="currentSerie.show.schedule.days[0]">
+                Scheduled:
+                <channel>
+                {{currentSerie.show.schedule.days[0]}}
+                {{currentSerie.show.schedule.days[1]}}
+                {{currentSerie.show.schedule.days[2]}}
+                {{currentSerie.show.schedule.days[3]}}
+                {{currentSerie.show.schedule.days[4]}}
+                {{currentSerie.show.schedule.days[5]}}
+                {{currentSerie.show.schedule.days[6]}}
+                </channel>
+                <time ng-if="currentSerie.show.schedule.time">
+                  at
+                  {{currentSerie.show.schedule.time}}
+                </time>
+              </h5>
+              <h5 ng-if="currentSerie.show.premiered">
+                Premiered:
+                {{currentSerie.show.premiered}}
+              </h5>
             </div>
+          </div>
+        </div>
+        <div class="row" ng-repeat="list in listSeasons | filter:{number: lastSeason}">
+          <div class="col col-25">
+            <img src="{{list.image.medium}}">
+          </div>
+          <div class="col col-66">
+          <nav>
+            <div class="nav-wrapper">
+              <h3 class="title-nav">Previous Episodes</h3>
+            </div>
+          </nav>
+          <table class="responsive-table highlight bordered">
+            <thead>
+              <tr>
+                  <th><h4>Episode Name</h4></th>
+                  <th><h4>Airdate</h4></th>
+                  <th></th>
+              </tr>
+            </thead>
+            <tbody ng-repeat="episodes in listEpisodes | filter:{season: lastSeason} | limitTo: -5 | orderBy: '-airdate'">
+              <tr ng-if="episodes.airdate <= getToday">
+                <td>{{episodes.season}}x{{episodes.number}}: {{episodes.name}}</td>
+                <td>{{episodes.airstamp | date:"MMM/dd/yyyy 'at' h:mma"}}</td>
+                <td class="today" ng-if="episodes.airdate == getToday"><b>Today</b></td>
+                <td ng-if="episodes.airdate < getToday"></td>
+                <td class="soon" ng-if="episodes.airdate > getToday"> Soon </td>
+              </tr>
+            </tbody>
+          </table>
           </div>
         </div>
     </ion-content>

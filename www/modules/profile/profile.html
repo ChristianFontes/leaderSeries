@@ -1,0 +1,101 @@
+<ion-view view-title="Account">
+    <ion-content class="padding profile-container">
+    	<div class="row">
+            <div class="col col-75">
+                <h2 class="title padding light">{{profile}}</h2>
+            </div>
+            <div class="col col-25">
+                <button class="button button-assertive" 
+                    ng-click="editAccount = true" 
+                    ng-show="!editAccount">
+                    <i class="icon ion-edit"></i>
+                </button>
+                <button class="button button-assertive" 
+                    ng-click="logout()" 
+                    ng-show="!editAccount">
+                    <i class="icon ion-power"></i>
+                </button>
+                <button class="button button-assertive" 
+                        ng-click="editAccount = false" 
+                        ng-show="editAccount">
+                    <i class="icon ion-reply"></i>
+                </button>
+            </div>
+        </div>
+        <div ng-show="editAccount">
+        <div class="row">
+            <div class="col logo-preview padding">
+                <img ng-src="{{data.avatar}}" ng-show="data.avatar != ''">
+                <i class="icon ion-refresh light" ng-show="data.avatar != ''" ng-click="clearAvatar()"></i>
+            </div>
+        </div>
+        <div class="row" ng-show="platform == 'linux' && data.avatar == '' ">
+            <div class="col">
+                <div class="light loader-icon">
+                    <div class="loader-icon-container">
+                        <input type="file" id="fileInput" accept="image/*" />
+                        <i class="icon ion-images" ng-click="openPictureModal()"></i>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="platform == 'android' && data.avatar == '' ">
+            <div class="col">
+                <div class="light loader-icon">
+                    <i class="icon ion-images" ng-click="openPictureModal()"></i>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <img class="avatar-list" ng-repeat="avatar in listAvatares" 
+            ng-src="/img/{{avatar.url}}" ng-click="toggleImage(avatar)">
+        </div>
+        </div>
+        <div class="row">
+        	<div class="col col-50 center">
+                <form name="updateAccountForm" ng-submit="updateAccount(updateAccountForm)">
+        		<img class="avatar" ng-if="user.avatar" ng-src="{{user.avatar}}" 
+                    ng-show="!editAccount">
+                <img class="avatar" ng-if="!user.avatar" 
+                    ng-src="/img/profile-default.png" ng-show="!editAccount">
+                <div class="card">
+                    <div class="item item-icon-left">
+                        <i class="icon ion-person"></i>
+                    <label class="item-input label-form">
+                        <b class="input-label show-form">Username:</b>
+                        <input ng-show="editAccount" type="text" 
+                               ng-minlength="5" ng-maxlength="20" 
+                               name="username" 
+                               ng-model="data.username" 
+                               placeholder="{{user.username}}">
+                        <div ng-show="!editAccount">{{user.username}}</div>
+                    </label>
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon ion-email"></i>
+                    <label class="item-input label-form">
+                        <b class="input-label show-form">Email:</b>
+                        <input ng-show="editAccount" type="email" ng-minlength="15" ng-maxlength="40" name="email" ng-model="data.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="{{user.email}}">
+                        <div ng-show="!editAccount">{{user.email}}</div>
+                    </label>
+                    </div>
+
+                    <div class="item item-icon-left" ng-show="editAccount"> 
+                        <i class="icon ion-key"></i>
+                    <label class="item-input label-form">
+                        <b class="input-label show-form">Password:</b>
+                        <input ng-show="editAccount" placeholder="Set your new password" type="password" ng-minlength="6" ng-maxlength="30" name="password" ng-model="data.password">
+                        <div ng-show="!editAccount">{{user.email}}</div>
+                    </label>
+                    </div>
+                </div>
+                    <div>
+                        <button type="submit" class="button button-full button-assertive ink" ng-show="editAccount" ng-click="editAccount = false">updateProfile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

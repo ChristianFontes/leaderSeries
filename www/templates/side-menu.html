@@ -1,21 +1,29 @@
 <ion-side-menus ng-controller="seriesDashboardController">
   <ion-side-menu-content>
-    <ion-nav-bar class="bar-dark nav-title-slide-ios7">
+    <ion-nav-bar class="bar-light nav-title-slide-ios7">
       <ion-nav-buttons class="button-clear">
-        <button class="button icon ion-navicon-round" ng-click="toggleLeft()"></button>
+        <div class="bar bar-header">
+          <button class="button icon ion-navicon-round" ng-click="toggleLeft()">
+          </button>
+          <div class="button" ng-click="logout()">
+            <img style="max-height: 30px; max-width: 30px;" src="{{user.avatar}}">
+            <i class="icon ion-power"></i>
+          </div>
+        </div>
       </ion-nav-buttons>
     </ion-nav-bar>
+
     <!-- Dashboard -->
-    <div class="tabs tabs-icon-top dark-bg" ng-if="icon == 'series.Dashboard' || icon == null">
-      <div class="tab-item light" ng-click="go('series.mySeries');">
+    <div class="tabs tabs-icon-top light-bg" ng-if="icon == 'series.Dashboard'">
+      <div class="tab-item dark" ng-click="go('series.mySeries');">
         <i class="icon ion-android-list"></i>
         My Series
       </div>
-      <div class="tab-item light">
+      <div class="tab-item dark">
         <i class="icon ion-android-search"></i>
         Search Serie
       </div>
-      <div class="tab-item light">
+      <div class="tab-item dark">
         <i class="icon ion-power"></i>
         Log-out
       </div>
@@ -37,36 +45,62 @@
       </div>
     </div>
 
+    <!-- Premieres -->
+    <div class="tabs tabs-icon-top" ng-if="icon == 'series.premieres'">
+      <div class="tab-item" ng-click="go('series.Dashboard');">
+        <i class="icon ion-grid"></i>
+        Dashboard
+      </div>
+      <div class="tab-item" ng-click="go('series.mySeriesToday');">
+        <i class="icon ion-android-film"></i>
+        Today my series
+      </div>
+      <div class="tab-item">
+        <i class="icon ion-android-calendar"></i>
+        My next series
+      </div>
+    </div>
+
     <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
   </ion-side-menu-content>
 
   <ion-side-menu side="left" class="sideMenu-container">
     <div class="header">
-          <div class="item item-avatar">
+        <div class="background-header">
+          <div class="item-thumbnail-right">
             <img src="{{user.avatar}}">
-            <h2 class="light">{{user.username}}</h2>
-            <h7 class="light">{{user.email}}</h7>
           </div>
-
-        <div menu-close class="item item-icon-left light" ng-click="go('series.Dashboard')">
-          <i class="icon ion-ios-keypad"></i><b>Dashboard</b>
+          <h4>Welcome {{user.username}}</h4> 
+          <div class="item-thumbnail-left dark">
+            <img src="/img/googlePlay.png">
+          </div>
+        </div>
+        <div class="item item-icon-left dark" ng-click="go('series.Dashboard')">
+          <i class="icon ion-ios-keypad"></i>
+          <b>Dashboard</b>
         </div>
 
-        <div menu-close class="item item-icon-left light" ng-click="go('series.premieres')">
-          <i class="icon ion-ios-keypad"></i><b>Premieres</b>
+        <div class="item item-icon-left dark" ng-click="go('series.premieres')">
+          <i class="icon ion-android-star-outline"></i><b>Premieres</b>
         </div>
 
-        <div menu-close class="item item-icon-left light" ng-click="go('series.mySeries')">
-          <i class="icon ion-android-clipboard"></i><b>My Series</b>
+        <div class="item item-icon-left dark" ng-click="go('series.mySeries')">
+          <span class="badge badge-assertive">{{numberSeries}}</span>
+          <i class="icon ion-monitor"></i><b>My Series</b>
         </div>
         
-        <div menu-close class="item item-icon-left light">
+        <div class="item item-icon-left dark">
           <i class="icon ion-android-search"></i><b>Search Series</b>
         </div>
 
-        <div menu-close class="item item-icon-left light">
+        <div class="item item-icon-left dark" ng-click="go('series.profile')">
           <i class="icon ion-person"></i><b>Account</b>
         </div>
+        
+        <div class="item item-icon-left dark">
+          <i class="icon ion-android-download"></i><b>Download our app</b>
+        </div>
+        
       </ion-list>
     </div>
   </ion-side-menu>

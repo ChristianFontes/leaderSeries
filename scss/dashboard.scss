@@ -1,6 +1,7 @@
 .dashboard-container{
   background-size: cover;
-  background: url('../img/b4.jpg') center;
+  background-color: #009688;
+  margin-bottom: 40px;
 
   .list-card{
   	float: left;
@@ -31,5 +32,53 @@
   	text-align: center;
   	margin-top: 25%;
   	margin-bottom: 25%;
+  }
+  .title-card {
+    padding-top: 20px;
+    margin-left: 25px;
+  }
+  h7 {
+    color: #3C948B;
+    font-style: italic;
+  }
+  h3 {
+    color: #303030;
+  }
+  .color-date {
+    color: #F92D36;
+  }
+  i {
+    font-size: 18px;
+  }
+  .item {
+    margin-left: 7px;
+    margin-right: 7px;
+  }
+
+  .title-search {
+    padding-top: 20px;
+    margin-left: 25px;
+  }
+
+  .item-input{
+    background-color: transparent !important;
+    border-color: transparent !important;
+    padding-bottom: 10px;
+    float: right;
+    margin-top: -35px;
+    padding-left: 15px;
+  }
+
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:  #ffffff;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color:    #ffffff;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color:    #ffffff;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+     color:    #ffffff;
   }
 }

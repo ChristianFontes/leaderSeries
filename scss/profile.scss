@@ -1,0 +1,98 @@
+.profile-container{
+    background-size: cover;
+    background-color: #009688;
+    .logo-preview{
+        text-align: center;
+        position: relative;
+        max-height: 150px;
+        max-width: 150px;
+        margin: 0 auto;
+        img{
+            width: 100%;
+            height: auto;    
+        }
+        i{
+            position:absolute;
+            top: 0;
+            right: -35px;
+            font-size: 36px;
+        }
+    }
+    .loader-icon{
+        text-align: center;
+        
+        i{
+                font-size: 36px;
+                border: 2px solid $light;
+                border-radius: 50%;
+                padding: 8px;
+            }   
+        
+        .loader-icon-container{
+            position: relative;
+            width: 56px;
+            height: 60px;
+            margin: 0 auto;
+            input{
+                line-height: 25px;
+                margin-top: 10px;    
+            }
+            [type=file] {
+                position: absolute;
+                //filter: alpha(opacity=0);
+                opacity: 0;
+                background: dark;
+                border: 1px solid #CCC;
+                border-radius: 3px;
+                text-align: left;
+                padding: 10px;
+                width: 50px;
+                height: 60px;
+                margin: 0;
+                top: -10px;
+            }
+        }
+    }
+    .label-form{
+        margin-top: -15px;
+        margin-bottom: -15px;
+    }
+    .show-form{
+        margin-left: -15px;
+    }
+    .project-logo-modal{
+        max-height: 100px;
+        max-width: 100px;
+        margin: auto;
+        .preview-logo{
+            max-height: 100px;
+            max-width: 100px;
+        }
+    }
+
+    .avatar-list{
+        max-width: 50px;
+        max-height: 50px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .avatar{
+        max-width: 100px;
+        max-height: 100px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .validation{
+        display: block;
+        padding-right: 25px;
+    }
+
+    .center {
+        width: 700px ;
+        margin-left: auto ;
+        margin-right: auto ;
+    }
+}

@@ -1,0 +1,32 @@
+.casting-container{
+	background-size: cover;
+	background-color: #009688;
+	.list-card{
+		float: left;
+		margin: 5px;
+		width: 230px;
+		height: auto; 
+	}
+	.size-image{
+		height: 160px; 
+		max-width: 160px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 5px;
+		margin-top: 5px;
+	}
+	.card {
+		background-color: transparent !important;
+	}
+	.item{
+		opacity: 0.8;
+	}
+	.title-card {
+		padding-top: 20px;
+		margin-left: 25px;
+	}
+	h2 {
+		color: #F92D36;
+    	font-style: italic;
+	}
+}

@@ -1,15 +1,33 @@
 .sideMenu-container{
   background-size: cover;
-  background: url('../img/b4.jpg') center;
+  background-color: white;
   color: white;
 	.item { 
 		background-color: transparent !important;
+    border-color: transparent !important;
 	}
-	.myTabStyle {
-    	background-color:#1b4d71 !important;
-    }
+  .myTabStyle {
+  	background-color: #1b4d71 !important;
+  }
 
-	.myTabStyle:hover {
-    	background-color:#098aba !important;
-    }
+  .myTabStyle:hover {
+  	background-color: #098aba !important;
+  }
+
+  .background-header {
+    background: url('/img/b1.jpg') center;
+    max-height: 150px;
+  }
+
+  h4 {
+    margin-left: 20px;
+  }
+
+  .badge{
+    position: absolute;
+  }
+
+  b {
+    cursor: pointer;;
+  }
 }

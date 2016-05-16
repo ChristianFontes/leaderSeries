@@ -1,4 +1,59 @@
 .mySeries-container{
 	background-size: cover;
-	background: url('../img/b7.jpg') center;
+	background-color: #009688;
+
+	.size-image {
+		border-radius: 20%;
+	}
+	.title-card {
+		padding-top: 20px;
+		margin-left: 25px;
+	}
+	.border {
+		border-radius: 20%;
+	}
+	.image-align {
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+	h7 {
+		color: #3C948B;
+		font-style: italic;
+	}
+	h2 {
+		color: #FF5500;
+	}
+	h3 {
+		color: #0089FF;
+		text-align: right;
+	}
+	.date {
+		color: #000000;
+		text-align: right;
+		padding-right: 30px;
+	}
+	.dark-inside {
+		padding-top: 10px;
+		color: #000000;
+		padding-bottom: 10px;
+	}
+	.inside {
+		padding-right: 40px;
+		text-align: justify;
+	}
+	.date-nextEpisode {
+		color: #000000;
+		text-align: left;
+	}
+	.padding-top{
+		padding-top: 10px;
+	}
+	.item {
+		margin-left: 7px;
+		margin-right: 7px;
+	}
+	.lastEpisodeSeen {
+		border-bottom-right-radius: 2em;
+		border-bottom-left-radius: 2em;
+	}
 }

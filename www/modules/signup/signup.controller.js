@@ -9,7 +9,7 @@
       $scope.err = '';
       $scope.go = go;
       $scope.signup = signup;
-      $scope.data.avatar = "../img/avatar-default.jpg";
+      $scope.data.avatar = "/img/avatar-default.jpg";
 
       function go(path){
         $state.go(path);

@@ -38,4 +38,4 @@ angular.module('leaderSeries', [
             StatusBar.styleDefault();
         }
     });
-})
+});

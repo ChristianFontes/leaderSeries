@@ -1,0 +1,51 @@
+<ion-view view-title="Casting" view-cached="false">
+    <ion-content class="casting-container padding">
+        <div class="row">
+        	<div class="col" ng-if="error">
+        		<nav>
+					<div class="nav-wrapper">
+						<h4 class="title-card light"><b>:( Cast no found</b></h4>
+					</div>
+				</nav>
+        	</div>
+	        <div class="col" ng-if="!error">
+	        <nav>
+				<div class="nav-wrapper">
+					<h4 class="title-card light"><b>Persons & Characteres </b></h4>
+				</div>
+			
+	        	<div class="card list-card" ng-repeat="cast in casting">
+	        		<div class="card-image">
+	                    <img class="size-image" ng-if="cast.person.image.medium" 
+	                        ng-src="{{cast.person.image.medium}}">
+	                    <img class="size-image" 
+	                        ng-if="!cast.person.image.medium && cast.person.image.original"
+	                        ng-src="{{cast.person.image.original}}">
+	                    <img class="size-image" 
+	                        ng-if="!cast.person.image.medium && !cast.person.image.original"
+	                        ng-src="/img/noImage.png">
+	                </div>
+	                <div class="card-image">
+	                    <img class="size-image" ng-if="cast.character.image.medium" 
+	                        ng-src="{{cast.character.image.medium}}">
+	                    <img class="size-image" 
+	                        ng-if="!cast.character.image.medium && cast.character.image.original"
+	                        ng-src="{{cast.character.image.original}}">
+	                    <img class="size-image" 
+	                        ng-if="!cast.character.image.medium && !cast.character.image.original"
+	                        ng-src="/img/noImage.png">
+	                </div>
+	                <div class="item dark">
+	                	<h3>
+	                    	<h2><b>{{cast.person.name}}</b></h2>
+	                    	Character
+	                    	<h2><b>{{cast.character.name}}</b></h2>
+	                    </h3>
+	                </div>
+	        	</div>
+	        </nav>
+	        </div>
+        </div>
+
+    </ion-content>
+</ion-view>

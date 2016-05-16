@@ -83,13 +83,21 @@
         }
       }
     })
-
-    .state('series.addSeries', {
-      url: '/add-series',
+    .state('series.casting', {
+      url: '/casting',
       views: {
         'menuContent': {
-          templateUrl: 'modules/series/mySeries/series/addSeries/addSeries.html',
-          controller: 'addSeriesController'
+          templateUrl: 'modules/series/casting/casting.html',
+          controller: 'castingController'
+        }
+      }
+    })
+    .state('series.profile', {
+      url: '/profile',
+      views: {
+        'menuContent': {
+          templateUrl: 'modules/profile/profile.html',
+          controller: 'profileController'
         }
       }
     });

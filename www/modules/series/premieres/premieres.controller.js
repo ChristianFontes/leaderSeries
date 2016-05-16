@@ -5,7 +5,7 @@
 
     function controller(
         $stateParams, $rootScope, $filter, $http, $scope, $window, mySeries, $ionicHistory, 
-        $state, $sessionStorage, $ionicSideMenuDelegate, User, Series, progressSeries){
+        $state, $sessionStorage, $ionicSideMenuDelegate, User, Series, userSeries){
         $scope.go = go;
         $scope.user = {};
         $scope.series = [];
@@ -25,8 +25,10 @@
         $scope.$on('$ionicView.beforeEnter', function () {
             if($sessionStorage.oneTime == 0){
                 Series.schedule(null, scheduleToday).then(function(result) {
-                    $sessionStorage.schedule = result;
-                    $scope.series = $sessionStorage.schedule;
+                    $scope.$apply(function () {
+                        $sessionStorage.schedule = result;
+                        $scope.series = $sessionStorage.schedule;
+                    });
                 });
                 $sessionStorage.oneTime = 1;
             }
@@ -45,12 +47,18 @@
             month = today.getMonth() + 1,
             year = today.getFullYear();
 
-        if(month < 10 || day < 10){
+        if(month < 10 && day < 10){
             var scheduleToday = year + "-0" + month + "-0" + day;
-            $scope.today = scheduleToday;
+            $scope.getToday = scheduleToday;
+        } else if(month > 9 && day < 10){
+            var scheduleToday = year + "-" + month + "-0" + day;
+            $scope.getToday = scheduleToday;
+        } else if(month < 10 && day > 9){
+            var scheduleToday = year + "-0" + month + "-" + day;
+            $scope.getToday = scheduleToday;
         } else {
             var scheduleToday = year + "-" + month + "-" + day;
-            $scope.today = scheduleToday;
+            $scope.getToday = scheduleToday;
         }
 
         function go(path) {
@@ -63,24 +71,30 @@
 
         function selected(serie){
 
-            $scope.data.serie = serie;
-            $scope.data.owners = $sessionStorage.sessionUser.user.id;
-            $scope.data.serie_id = serie.id;
+            var userID = $sessionStorage.sessionUser.user.id,
+                imdb = serie.show.externals.imdb,
+                serieAdd = serie.show,
+                serieID = serie.show.id;
 
-            if(serie.show.externals.imdb != null){
-                $scope.data.imdb = serie.show.externals.imdb;
-                $scope.serie.imdb = serie.show.externals.imdb;
-            }
-            var serie = new mySeries ($scope.data);
+            userSeries.searchImdb(userID, imdb).then(function(mySerie) {
+                $scope.serie.serie = serieAdd;
+                $scope.serie.owners = $sessionStorage.sessionUser.user.id;
+                $scope.serie.serie_id = serieID;
+                $scope.serie.imdb = imdb;
 
-            serie.$save(function(response) {
-                Materialize.toast('Add a your list', 2500, 'rounded');
-                console.log($scope.data);
-                $scope.data = {};
-            }, function(error) {
-                Materialize.toast('Already in your list', 2500, 'rounded');
-                console.log(error);
-                $scope.data = {};
+                if(mySerie.length > 0){
+                    Materialize.toast('Already in your list', 2500, 'rounded');
+                    $scope.serie = {};
+                } else {
+                    var serie = new mySeries ($scope.serie);
+                    serie.$save(function(response) {
+                        Materialize.toast('Add a your list', 2500, 'rounded');
+                        $scope.serie = {};
+                    }, function(error) {
+                        Materialize.toast('Already in your list', 2500, 'rounded');
+                        $scope.serie = {};
+                    });
+                }
             });
         }
 

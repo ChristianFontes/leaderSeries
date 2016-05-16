@@ -1,29 +1,126 @@
 <ion-view view-title="Dashboard">
     <ion-content class="dashboard-container padding">
         <div class="row">
-        	<section>
-	        	<div class="card cardleft assertive-bg">
-	        		<p>Premieres</p>
-	        	</div>
-	        	<div class="card cardright positive-bg">
-	        		<div class="intoCard">
-	        			<div class="fb-share-button" 
-	        				data-href="https://developers.facebook.com/docs/plugins/" 
-	        				data-layout="box_count" data-mobile-iframe="true">
-	        			</div>
-	        		</div>
-	        	</div>
-        	</section>
-        	<section>
-	        	<div class="card cardleft royal-bg">
-	        		<div class="intoCard">
-	        			My Series Today
-	        		</div>
-	        	</div>
-	        	<div class="card cardright energized-bg">
-	        		<p>Search Series</p>
-	        	</div>
-        	</section>
+        	<div class="col col-33">
+        		<nav>
+    				<div class="nav-wrapper">
+    					<h4 class="title-card light"><b>Next Episodes Premieres</b></h4>
+    				</div>
+					<div ng-repeat="episode in nextEpisode">
+						<div class="item item-thumbnail-left">
+				    		<img src="{{episode.image.medium}}">
+				    		<h2><b>{{episode.name}}</b></h2>
+				    		
+				    		<h7 ng-if="episode._embedded.nextepisode.season < 10 && episode._embedded.nextepisode.number < 10">
+						    	<b>0{{episode._embedded.nextepisode.season}}x0{{episode._embedded.nextepisode.number}}</b>
+						    </h7>
+						    <h7 ng-if="episode._embedded.nextepisode.season > 9 && episode._embedded.nextepisode.number < 10">
+						    	<b>{{episode._embedded.nextepisode.season}}x0{{episode._embedded.nextepisode.number}}</b>
+						    </h7>
+						    <h7 ng-if="episode._embedded.nextepisode.season > 9 && episode._embedded.nextepisode.number > 9">
+						    	<b>{{episode._embedded.nextepisode.season}}x{{episode._embedded.nextepisode.number}}</b>
+						    </h7>
+						    <h7 ng-if="episode._embedded.nextepisode.season < 10 && episode._embedded.nextepisode.number > 9">
+						    	<b>0{{episode._embedded.nextepisode.season}}x{{episode._embedded.nextepisode.number}}</b>
+						    </h7>
+						    <h7>{{episode._embedded.nextepisode.name}}</h7>
+						    <h3>
+						    	{{episode._embedded.nextepisode.airstamp | date:"EEEE, MMM/dd/yyyy 'at' h:mm a"}}
+						    </h3>
+				    	</div>
+					</div>
+    			</nav>
+        	</div>
+        	<div class="col col-33">
+        		<nav>
+    				<div class="nav-wrapper">
+    					<h4 class="title-search light"><b>Add Series</b>
+    					<form name="serie" ng-submit="searched(serie)" >
+	    					<label class="item item-input">
+						  		<input type="search" 
+						  			placeholder="Type your series name" 
+						  			ng-model="data.search">
+							</label>
+						</form>
+						</h4>
+    				</div>
+    				<div ng-repeat="serie in mySearch"
+		    			ng-if="serie.show.externals.imdb">
+						<div class="item item-thumbnail-left">
+							<img src="{{serie.show.image.medium}}">
+							<h2>{{serie.show.name}}</h2>
+							<p>Premiered: {{serie.show.premiered  | date:"MMM/dd/yyyy"}}</p>
+							<p>
+						      	<div class="waves-effect waves-light btn" 
+						      		ng-click="addSerie(serie.show.externals.imdb);">
+						      		+ Add to my list
+						      	</div>
+						    </p>
+						</div>
+		    		</div>
+    				<div ng-repeat="today in toptoday" ng-if="mySearch == null">
+	    				<div class="item item-thumbnail-left" 
+	    					ng-repeat="list in today | orderBy: 'airtime' | limitTo: -7" 
+	    					ng-if="list.show.externals.imdb">
+
+						    <img src="{{list.show.image.medium}}">
+						    <h2><b>{{list.show.name}}</b></h2>
+						    <h7>{{list.name}}</h7>
+						    <h3 ng-if="list.season < 10 && list.number < 10">
+						    	Episode: 0{{list.season}}x0{{list.number}}
+						    </h3>
+						    <h3 ng-if="list.season > 9 && list.number < 10">
+						    	Episode: {{list.season}}x0{{list.number}}
+						    </h3>
+						    <h3 ng-if="list.season > 9 && list.number > 9">
+						    	Episode: {{list.season}}x{{list.number}}
+						    </h3>
+						    <h3 ng-if="list.season < 10 && list.number > 9">
+						    	Episode: 0{{list.season}}x{{list.number}}
+						    </h3>
+						    <h3>
+						    	<b>{{list.airstamp | date:"MMM/dd/yyyy 'at' h:mm a"}}</b>
+						    </h3>
+					    </div>
+				    </div>
+    			</nav>
+        	</div>
+			<div class="col col-33">
+				<nav>
+    				<div class="nav-wrapper">
+    					<h4 class="title-card light"><b>My Episodes Today</b></h4>
+    				</div>
+    			</nav>
+    			<div ng-repeat="today in toptoday">
+    			<div ng-repeat="listSerie in today">
+				<div ng-repeat="list in listToday">
+	    			<div ng-repeat="serie in list| orderBy: 'airtime'"
+	    				ng-if="listSerie.id == serie.id">
+	    				<div class="item item-thumbnail-left">
+						    <img src="{{listSerie.show.image.medium}}">
+						    <h2><b>{{listSerie.show.name}}</b></h2>
+						    <h7>{{serie.name}}</h7>
+						    <h3 ng-if="serie.season < 10 && serie.number < 10">
+						    	Episode: 0{{serie.season}}x0{{serie.number}}
+						    </h3>
+						    <h3 ng-if="serie.season > 9 && serie.number < 10">
+						    	Episode: {{serie.season}}x0{{serie.number}}
+						    </h3>
+						    <h3 ng-if="serie.season > 9 && serie.number > 9">
+						    	Episode: {{serie.season}}x{{serie.number}}
+						    </h3>
+						    <h3 ng-if="serie.season < 10 && serie.number > 9">
+						    	Episode: 0{{serie.season}}x{{serie.number}}
+						    </h3>
+						    <div class="color-date">
+						    	{{serie.airstamp | date:"MMM/dd/yyyy 'at' h:mm a"}}
+						    </div>
+					    </div>
+					</div>
+				</div>
+				</div>
+				</div>      		
+			</div>
         </div>
     </ion-content>
 </ion-view>

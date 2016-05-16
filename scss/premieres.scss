@@ -1,12 +1,13 @@
 .premieres-container{
   background-size: cover;
-  background: url('../img/fondo-mini.jpg') center;
+  background-color: #009688;
   margin-bottom: 40px;
   .list-card{
   	float: left;
   	margin: 5px;
     width: 240px;
     height: auto; 
+    border-radius: 15%;
   }
   .size-image{
   	height: 160px; 
@@ -24,10 +25,19 @@
   	background-color: transparent !important;
   }
   .item{
-  	opacity: 0.8;
+  	opacity: 0.9;
   }
   .size-flag{
     width: 20px;
     height: 20px;
+  }
+  h7 {
+    font-style: italic;
+  }
+  title-card{
+    color: #FF6F00;
+  }
+  .title-card {
+     color: #000000;
   }
 }

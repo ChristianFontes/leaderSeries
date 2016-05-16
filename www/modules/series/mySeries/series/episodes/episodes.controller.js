@@ -5,137 +5,111 @@
 
     function controller(
         $stateParams, $rootScope, $filter, $http, $scope, $window, $state, $sessionStorage, 
-        $ionicSideMenuDelegate, User, Omdb, progressSeries, Series){
-
-        $scope.go = go;
-        $scope.user = {};
-        $scope.episodes = {};
-        $scope.data = {};
-        $scope.episode = {};
-        $scope.listEpisodes = [];
-        $scope.listEpisodesShow = [];
-        $scope.myEpisodes = {};
-
-        function go(path) {
-            $state.go(path);
-        }
-
-        function ArrNoDupe(a) {
-            var temp = {};
-            for (var i = 0; i < a.length; i++)
-                temp[a[i]] = true;
-            var r = [];
-            for (var k in temp)
-                r.push(k);
-            return r;
-        }
-
-        $scope.toggleLeft = function() {
-            $ionicSideMenuDelegate.toggleLeft();
-        };
-
-        $scope.toggleGroup = function(group) {
-            group.show = !group.show;
-        };
-
-        $scope.isGroupShown = function(group) {
-            return group.show;
-        };
-
+        $ionicSideMenuDelegate, User, Series, progressSeries, saveEpisodes){
         $scope.$on('$ionicView.beforeEnter', function () {
-        
-            var id = $sessionStorage.currentSerie;
 
+            $scope.go = go;
+            $scope.user = {};
+            $scope.episodes = {};
+            $scope.data = {};
+            $scope.episode = {};
+            $scope.listEpisodes = [];
+            $scope.listEpisodesShow = [];
+            $scope.myEpisodes = {};
+            $scope.progressSeries = [];
+
+            function go(path) {
+                $state.go(path);
+            }
+
+            $scope.toggleLeft = function() {
+                $ionicSideMenuDelegate.toggleLeft();
+            };
+
+            $scope.toggleGroup = function(group) {
+                group.show = !group.show;
+            };
+
+            $scope.isGroupShown = function(group) {
+                return group.show;
+            };
+        
+            var user = User.get({id: $sessionStorage.sessionUser.user.id}, function () {
+                if(user.progressSeries.length == 0){
+                    $scope.progressSeries = {
+                        episodeId: "0"
+                    };
+                } else {
+                    $scope.progressSeries = user.progressSeries;
+                }
+            });
+
+            $scope.seasons = [];
+
+            $scope.data = $sessionStorage.currentSerie;
+            var id = $sessionStorage.currentSerie.serie_id,
+                imdb = $sessionStorage.currentSerie.imdb;
+
+            Series.showByImdb(imdb).then(function(data) {
+                $scope.$apply(function () {
+                    if(data){
+                        $scope.data = data;
+                    } else {
+                        console.log("No imdb");
+                    }
+                });
+            });
+            
             Series.showSeasonList(id).then(function(result) {
-                $scope.seasons = result;
+                $scope.$apply(function () {
+                    $scope.listSeasons = result;
+                });
             });
 
             Series.showEpisodeList(id).then(function(result) {
-                $scope.episodes = result;
+                $scope.$apply(function () {
+                    $scope.listEpisodes = result;
+                });
+            });
 
-                /*
-                var progress = progressSeries.query(function () {
+            $scope.toggleEye = function(episode) {
 
-                    $scope.progress = progress;
+                var userID = $sessionStorage.sessionUser.user.id,
+                    episodeId = episode.id,
+                    mySerie = $scope.data,
+                    imdb = $sessionStorage.currentSerie.imdb,
+                    episodeAdd = episode;
+                
+                progressSeries.checkEpisode(userID, imdb, episodeId).then(function(myEpisode) {
 
+                    $scope.episode.owners = userID;
+                    $scope.episode.mySerie = mySerie;
+                    $scope.episode.episodeId = episodeId;
+                    $scope.episode.serieIMDB = imdb;
+                    $scope.episode.info = episodeAdd;
 
-                    for (var j = 0; j <= progress.length - 1; j++) {
-                        $scope.listEpisodesShow.push($scope.progress[j].episodeId);
-                        console.log($scope.listEpisodesShow);
+                    if(myEpisode.length > 0){
+                        var deleteID = myEpisode[0].id;
+                        saveEpisodes.delete({ id: deleteID }, function() {
+                            Materialize.toast('Remove Episode from your list', 2500, 'rounded');
+                            $scope.serie = {};
+                        });
+                    }else {
+                        var episode = new saveEpisodes($scope.episode);
+                        episode.$save(function(response) {
+                            Materialize.toast('Add a your list', 2500, 'rounded');
+                        }, function(error) {
+                            Materialize.toast('Failed add to your list', 2500, 'rounded');
+                        });
                     }
+                });
+            };
 
-                    if(progress.length > 0){
-                        
-                        for (var i = 0; i <= result.length - 1; i++) {
-                            for (var j = 0; j <= progress.length - 1; j++) {
-                                if(result[i].id == $scope.listEpisodesShow[j]){
-                                    $scope.progress.show = true;
-                                    $scope.listEpisodes.push($scope.progress[j].episodes);
-                                    console.log($scope.listEpisodes);
-                                    i++;
-                                }else{
-                                    $scope.listEpisodes.push(result[i]);
-                                    console.log($scope.listEpisodes);
-                                    i++;
-                                }
-                            }
-                        }
-                    } else {
-                        $scope.listEpisodes = $scope.episodes;
-                    }                
-                });*/
-            });
-
-            Series.shows(id).then(function(result) {
-                $scope.data = result;
-            });
-            
             $(document).ready(function(){
                 $('.collapsible').collapsible({
                   accordion : false
                 });
             });
-
-            $scope.toggleEye = function(episode) {
-                episode.show = !episode.show;
-                var episodeId = episode.id;
-
-                if(episode.show){
-                    //add episode
-                    $scope.episode.owners = $sessionStorage.sessionUser.user.id;
-                    $scope.episode.serie = $scope.data;
-                    $scope.episode.episodes = episode;
-                    $scope.episode.episodeId = episode.id;
-
-                    var episode = new progressSeries ($scope.episode);
-
-                    episode.$save(function(response) {
-                        Materialize.toast('Add a your list', 2500, 'rounded');
-                    }, function(error) {
-                        Materialize.toast('Already in your list', 2500, 'rounded');
-                    });
-                } else {
-                    Materialize.toast('Deleted in your list', 2500, 'rounded');
-                    var progress = progressSeries.query(function () {
-                        $scope.progress = progress;
-                        for (var i = progress.length - 1; i >= 0; i--) {
-                            if(episodeId == progress[i].episodes.id){
-                                var episode = new progressSeries ({id: progress[i].id});
-                                episode.$delete(function(response) {
-                                    console.log(response);
-                                }, function(error) {
-                                    console.log(error);
-                                });
-                            }
-                        }
-                    });
-                }
-            };
-
-            $scope.view = function(episode) {
-               return episode.show;
-                
-            };
         });
     }
 })();
