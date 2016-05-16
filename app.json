@@ -1,0 +1,7 @@
+{
+    "name": "Leader Series",
+    "description": "Probando el deploy",
+    "repository": "https://github.com/saimon24/devdactic-tinderstyle",
+    "logo": "http://devdactic.com/wp-content/uploads/2014/09/header.png",
+    "keywords": ["ionic", "devdactic", "tinder", "cards"]
+}
