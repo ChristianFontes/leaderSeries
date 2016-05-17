@@ -3,7 +3,7 @@
    
    angular.module('leaderSeries')
         .constant('apiSeries', {
-            URL: 'http://api.tvmaze.com', //Api Series
+            URL: 'https://api.tvmaze.com', //Api Series
         });
 })();
 
