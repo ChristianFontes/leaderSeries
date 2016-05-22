@@ -2,7 +2,7 @@
     'use strict';
     angular.module('leaderSeries')
         .factory('Series', function ($resource, apiSeries) {
-            
+              
               function getJSON(url) {
                 return new Promise(function(resolve, reject){
                   var req = new XMLHttpRequest();
