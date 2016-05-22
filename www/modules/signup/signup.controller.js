@@ -19,18 +19,13 @@
             if (!form.$invalid) {
                 var user = new User($scope.data);
                 user.$save(function(response) {
+                    console.log(response);
                     $sessionStorage.sessionUser = response;
-                    if($sessionStorage.currentProject)
+                    if($sessionStorage.currentProject){}
                         delete $sessionStorage.currentProject;
                     $state.go('series.Dashboard');
                 }, function(error) {
                     $scope.err = error;
-                    $scope.showErr = true;
-                    setTimeout(function (){
-                        $scope.$apply(function(){
-                        $scope.showErr = false;
-                        });
-                    }, 3000);
                 });
             } else {
                 angular.forEach(form.$error, function(field) {

@@ -1,48 +1,52 @@
 .episodes-container{
   background-size: cover;
-  background-color: #009688;
+  background-color: #263238;
   margin-bottom: 40px;
 
-  	.list .item.item-accordion {
-	  line-height: 38px;
-	  padding-top: 0;
-	  padding-bottom: 0;
-	  transition: 0.09s all linear;
+	.tittle { 
+		background-color: transparent !important;
+		border: none;
 	}
-	.list .item.item-accordion.ng-hide {
-	  line-height: 0px;
-	}
-	.list .item.item-accordion.ng-hide-add,
-	.list .item.item-accordion.ng-hide-remove {
-	  display: block !important;
-	}
-	.body-card {
-		padding-left: 25px;
-		padding-top: 10px;
-		padding-bottom: 10px;
-	}
-	.list-episodes {
-		padding-right: 35px;
-	}
-	.date-list-episodes {
-		padding-right: 35px;
+	.align-button {
 		text-align: right;
 	}
-	.align-image {
-		padding-left: 15%;
+	.center {
+		width:60%; 
+    	margin-left:20%; 
+    	margin-right:20%;
 	}
-	color {
-	    color: #3C948B;
-	    font-style: italic;
+	.card {
+		padding: 5%;
+		margin-top: -10px;
+		margin-bottom: -10px;
 	}
-	h3 {
-		color: #4E4E4E;
+	.justify {
+		text-align: justify;
+	}
+
+	.style-list {
+		color: $assertive;
 		text-align: right;
-		padding-right: 50px;
+		margin-top: -20px;
 	}
-	.title-card {
-		padding-top: 20px;
-		margin-left: 25px;
-		font-style: italic;
+	.style-season-list {
+
+	}
+	.style-list-episode {
+		color: $light;
+		margin-left: -25px;
+		margin-top: -30px;
+	}
+	.item {
+		border-color: transparent !important;
+		background-color: transparent !important;
+	}
+	.button-right {
+		background-color: transparent !important;
+		margin-left: -70px;
+		margin-top: -30px;
+	}
+	.align-season {
+		text-align: center;
 	}
 }

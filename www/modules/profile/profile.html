@@ -1,10 +1,13 @@
-<ion-view view-title="Account">
+<ion-view>
     <ion-content class="padding profile-container">
     	<div class="row">
-            <div class="col col-75">
-                <h2 class="title padding light">{{profile}}</h2>
+            <div class="col col-60">
+                <div class="item item-icon-left tittle light">
+                    <i class="icon ion-person"></i>
+                    <b>My Profile</b>
+                </div>
             </div>
-            <div class="col col-25">
+            <div class="col col-40 buttom-align">
                 <button class="button button-assertive" 
                     ng-click="editAccount = true" 
                     ng-show="!editAccount">
@@ -29,32 +32,14 @@
                 <i class="icon ion-refresh light" ng-show="data.avatar != ''" ng-click="clearAvatar()"></i>
             </div>
         </div>
-        <div class="row" ng-show="platform == 'linux' && data.avatar == '' ">
-            <div class="col">
-                <div class="light loader-icon">
-                    <div class="loader-icon-container">
-                        <input type="file" id="fileInput" accept="image/*" />
-                        <i class="icon ion-images" ng-click="openPictureModal()"></i>
-                        <div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row" ng-show="platform == 'android' && data.avatar == '' ">
-            <div class="col">
-                <div class="light loader-icon">
-                    <i class="icon ion-images" ng-click="openPictureModal()"></i>
-                </div>
-            </div>
-        </div>
+        
         <div class="row">
             <img class="avatar-list" ng-repeat="avatar in listAvatares" 
             ng-src="/img/{{avatar.url}}" ng-click="toggleImage(avatar)">
         </div>
         </div>
         <div class="row">
-        	<div class="col col-50 center">
+        	<div class="col center">
                 <form name="updateAccountForm" ng-submit="updateAccount(updateAccountForm)">
         		<img class="avatar" ng-if="user.avatar" ng-src="{{user.avatar}}" 
                     ng-show="!editAccount">
@@ -66,7 +51,7 @@
                     <label class="item-input label-form">
                         <b class="input-label show-form">Username:</b>
                         <input ng-show="editAccount" type="text" 
-                               ng-minlength="5" ng-maxlength="20" 
+                               ng-minlength="6" ng-maxlength="20" 
                                name="username" 
                                ng-model="data.username" 
                                placeholder="{{user.username}}">
@@ -86,13 +71,20 @@
                         <i class="icon ion-key"></i>
                     <label class="item-input label-form">
                         <b class="input-label show-form">Password:</b>
-                        <input ng-show="editAccount" placeholder="Set your new password" type="password" ng-minlength="6" ng-maxlength="30" name="password" ng-model="data.password">
+                        <input ng-show="editAccount" placeholder="Set new password" 
+                            type="password" ng-minlength="6" ng-maxlength="30" 
+                            name="password" ng-model="data.password">
                         <div ng-show="!editAccount">{{user.email}}</div>
                     </label>
                     </div>
                 </div>
                     <div>
-                        <button type="submit" class="button button-full button-assertive ink" ng-show="editAccount" ng-click="editAccount = false">updateProfile</button>
+                        <button type="submit" class="button button-full button-assertive ink"    ng-show="editAccount && (
+                                data.avatar || data.username || data.password || 
+                                data.email)" 
+                            ng-click="editAccount = false">
+                            Update Profile
+                        </button>
                     </div>
                 </form>
             </div>

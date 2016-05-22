@@ -6,7 +6,7 @@
     function controller(
         $stateParams, $rootScope, $filter, $http, $scope, $window, mySeries, $ionicHistory, 
         $state, $sessionStorage, $ionicSideMenuDelegate, User, Series, progressSeries,
-        AuthService, userSeries){
+        AuthService, userSeries, $ionicTabsDelegate, saveEpisodes){
 
         $scope.$on('$ionicView.beforeEnter', function () {
             $scope.go = go;
@@ -17,11 +17,37 @@
             $scope.confirmed = confirmed;
             $scope.addSerie = addSerie;
             $scope.serie = {};
+            $scope.active = true;
+            $scope.showTodayEpisode = false;
+            $scope.showNextEpisode = false;
+            $scope.showSearch = false;
 
             $rootScope.$on('$stateChangeSuccess',
               function(event, toState, toParams, fromState, fromParams) {
                 $scope.icon = toState.name;
             });
+
+            $scope.selectTabWithIndex = function(index) {
+                $ionicTabsDelegate.select(index);
+                if(index == 1){
+                    $scope.showTodayEpisode = true;
+                    $scope.showNextEpisode = false;
+                    $scope.showSearch = false;
+                    $scope.active = false;
+                }
+                if(index == 2){
+                    $scope.showTodayEpisode = false;
+                    $scope.showNextEpisode = true;
+                    $scope.showSearch = false;
+                    $scope.active = false;
+                }
+                if(index == 3){
+                    $scope.showTodayEpisode = false;
+                    $scope.showNextEpisode = false;
+                    $scope.showSearch = true;
+                    $scope.active = false;
+                }
+            }
 
             function go(path) {
                 $state.go(path);
@@ -112,11 +138,10 @@
                 $scope.avatar = $sessionStorage.sessionUser.user.avatar;
                 $scope.username = $sessionStorage.sessionUser.user.username;
 
-
                 var limit = user.series.length;
 
                 for (var i = limit - 1; i >= 0; i--) {
-                    var id = user.series[i].serie_id;
+                    var id = user.series[i].serie.id;
 
                     Series.episodesByDate(id,scheduleToday).then(function(episodesByDate) {
                         if(episodesByDate){

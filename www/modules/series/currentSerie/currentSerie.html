@@ -1,69 +1,112 @@
-<ion-view view-title="Show selected" view-cached="false">
+<ion-view view-cached="false">
     <ion-content class="currentSerie-container padding">
-        <div class="row">
-          <nav>
-            <div class="nav-wrapper">
-              <h3 class="title-nav">{{currentSerie.show.name}}</h3>
-              <ul class="right hide-on-med-and-down ul-nav">
-                <li ng-click="casting(currentSerie)"><b>CAST</b></li>
-              </ul>
-            </div>
+    <div class="row">
+      <div class="col col-85">
+          <div class="item item-icon-left tittle light">
+              <i class="icon ion-pin"></i>
+              <b>{{currentSerie.show.name}}</b>
           </div>
+      </div>
+      <div class="col col-15 buttom-right">
+          <button class="button button-assertive" 
+              ng-click="showInfo = true" 
+              ng-show="!showInfo">
+              <i class="icon ion-information"></i>
+          </button>
+          <button class="button button-assertive" 
+              ng-click="showInfo = false" 
+              ng-show="showInfo">
+              <i class="icon ion-minus-round"></i>
+          </button>
+      </div>
+    </div><br>
+    <div ng-if="!showInfo">
+      <div class="size-card">
+        <img src="{{currentSerie.show.image.medium}}">
+      </div>
+      <div class="card">
+        <b>{{summary}}</b>
+      </div>
+      <div ng-repeat="list in listSeasons | filter:{number: lastSeason}">
+        <div class="item tittle light">
+            <b>Previous Episodes</b>
         </div>
-        <div class="row">
-          <div class="col col-25">
-            <div class="size-card">
-              <img src="{{currentSerie.show.image.medium}}">
+        <ion-list>
+          <ion-item ng-repeat="episodes in listEpisodes | filter:{season: lastSeason} | limitTo: -5 | orderBy: '-airdate'" ng-if="episodes.airdate <= getToday">
+            <div class="item item-body style light">
+              <b><span class="energized">{{episodes.season}}x{{episodes.number}}:</span>
+              {{episodes.name}}</b>
             </div>
-          </div>
-          <div class="col col-33 text-in-box dark">
-            <div class="card">
-              {{summary}}
-            </div>
-          </div>
+            <div class="calm">{{episodes.airstamp | date:"MMM/dd/yyyy 'at' h:mma"}}
+              <span class="today" ng-if="episodes.airdate == getToday"><b>Today</b></span>
+            </div><hr>
+          </ion-item>
+        </ion-list>
+        <br>
+      </div>
+    </div>
+
+    <div ng-if="showInfo">
+      <div class="card light">
+        <h5 class="light"><b>Airs on: </b>
+          <img src="/img/usa.png">
+          <channel><b>{{currentSerie.show.network.name}}</b></channel>
+        </h5>
+        <h5 class="light" ng-if="currentSerie.show.genres[0]">
+        <b>
+          Genres: 
+            {{currentSerie.show.genres[0]}}
+            {{currentSerie.show.genres[1]}}
+            {{currentSerie.show.genres[2]}}
+            {{currentSerie.show.genres[3]}}
+            {{currentSerie.show.genres[4]}}
+        </b>
+        </h5>
+        <h5 class="light" ng-if="currentSerie.show.status">
+        <b>
+          Status:
+          {{currentSerie.show.status}}
+        </b>
+        </h5>
+        <h5 class="light" ng-if="currentSerie.show.rating.average">
+        <b>
+          Rating:
+          {{currentSerie.show.rating.average}}
+        </b>
+        </h5>
+        <h5 class="light" ng-if="currentSerie.show.schedule.days[0]">
+        <b>
+          Scheduled:
+          <channel>
+          {{currentSerie.show.schedule.days[0]}}
+          {{currentSerie.show.schedule.days[1]}}
+          {{currentSerie.show.schedule.days[2]}}
+          {{currentSerie.show.schedule.days[3]}}
+          {{currentSerie.show.schedule.days[4]}}
+          {{currentSerie.show.schedule.days[5]}}
+          {{currentSerie.show.schedule.days[6]}}
+          </channel>
+          <time ng-if="currentSerie.show.schedule.time">
+            at {{currentSerie.show.schedule.time}}
+          </time>
+        </b>
+        </h5>
+        <h5 class="light" ng-if="currentSerie.show.premiered">
+        <b>
+          Premiered:
+          {{currentSerie.show.premiered}}
+        </b>
+        </h5>
+      </div>
+    </div>
+
+    <!--
+
+
           <div class="col col-40 separe">
             <div class="card card-style">
               <h3>Show Information</h3>
-              <h5>Airs on: 
-                <img src="/img/usa.png">
-                <channel>{{currentSerie.show.network.name}}</channel>
-              </h5>
-              <h5 ng-if="currentSerie.show.genres[0]">
-                Genres: 
-                  {{currentSerie.show.genres[0]}}
-                  {{currentSerie.show.genres[1]}}
-                  {{currentSerie.show.genres[2]}}
-                  {{currentSerie.show.genres[3]}}
-                  {{currentSerie.show.genres[4]}}
-              </h5>
-              <h5 ng-if="currentSerie.show.status">
-                Status:
-                {{currentSerie.show.status}}
-              </h5>
-              <h5 ng-if="currentSerie.show.rating.average">
-                Rating:
-                {{currentSerie.show.rating.average}}
-              </h5>
-              <h5 ng-if="currentSerie.show.schedule.days[0]">
-                Scheduled:
-                <channel>
-                {{currentSerie.show.schedule.days[0]}}
-                {{currentSerie.show.schedule.days[1]}}
-                {{currentSerie.show.schedule.days[2]}}
-                {{currentSerie.show.schedule.days[3]}}
-                {{currentSerie.show.schedule.days[4]}}
-                {{currentSerie.show.schedule.days[5]}}
-                {{currentSerie.show.schedule.days[6]}}
-                </channel>
-                <time ng-if="currentSerie.show.schedule.time">
-                  at
-                  {{currentSerie.show.schedule.time}}
-                </time>
-              </h5>
-              <h5 ng-if="currentSerie.show.premiered">
-                Premiered:
-                {{currentSerie.show.premiered}}
-              </h5>
+              
             </div>
           </div>
         </div>
@@ -96,6 +139,6 @@
             </tbody>
           </table>
           </div>
-        </div>
+        </div> -->
     </ion-content>
 </ion-view>

@@ -25,11 +25,9 @@
                         $state.go('series.Dashboard');
                     })
                     .error(function (response, status) {
-                        if(response.responseMsg){
-                          $scope.err = response.responseMsg;
+                        if(status == 400){
+                          $scope.err = response;
                           $scope.showErr = true;
-                          $scope.data.email = "";
-                          $scope.data.password = "";
                         }
                     });
             } else {

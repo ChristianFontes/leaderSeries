@@ -14,6 +14,7 @@
             $scope.data = {};
             $scope.episode = {};
             $scope.listEpisodes = [];
+            $scope.list = [];
             $scope.listEpisodesShow = [];
             $scope.myEpisodes = {};
             $scope.progressSeries = [];
@@ -33,21 +34,11 @@
             $scope.isGroupShown = function(group) {
                 return group.show;
             };
-        
-            var user = User.get({id: $sessionStorage.sessionUser.user.id}, function () {
-                if(user.progressSeries.length == 0){
-                    $scope.progressSeries = {
-                        episodeId: "0"
-                    };
-                } else {
-                    $scope.progressSeries = user.progressSeries;
-                }
-            });
 
             $scope.seasons = [];
 
             $scope.data = $sessionStorage.currentSerie;
-            var id = $sessionStorage.currentSerie.serie_id,
+            var id = $sessionStorage.currentSerie.serie.id,
                 imdb = $sessionStorage.currentSerie.imdb;
 
             Series.showByImdb(imdb).then(function(data) {
@@ -68,7 +59,33 @@
 
             Series.showEpisodeList(id).then(function(result) {
                 $scope.$apply(function () {
-                    $scope.listEpisodes = result;
+                    $scope.list = result;
+                    var user = User.get({id: $sessionStorage.sessionUser.user.id}, function () {
+                        $scope.progressSeries = user.progressSeries;
+
+                        if(user.progressSeries.length == 0){
+                            user.progressSeries.length = 1;
+                        }
+
+                        for (var j = 0; j <= $scope.list.length-1; j++) {
+                            for (var i = 0; i <= user.progressSeries.length-1; i++) {
+                                if($scope.list[j].id == $scope.progressSeries[i].episodeId){
+                                    $scope.list[j].viewed = true;
+                                    $scope.listEpisodes.push($scope.list[j]);
+                                    break;
+                                }
+                                if($scope.list[j].id != $scope.progressSeries[i].episodeId){
+                                    
+                                    $scope.listEpisodes.push($scope.list[j]);
+                                }
+                            }
+                        }
+
+                        $scope.list = [];
+                        $.each($scope.listEpisodes, function(i, el){
+                            if($.inArray(el, $scope.list) === -1) $scope.list.push(el);
+                        });
+                    });
                 });
             });
 
@@ -79,6 +96,7 @@
                     mySerie = $scope.data,
                     imdb = $sessionStorage.currentSerie.imdb,
                     episodeAdd = episode;
+                    delete episode._links;
                 
                 progressSeries.checkEpisode(userID, imdb, episodeId).then(function(myEpisode) {
 
@@ -91,25 +109,18 @@
                     if(myEpisode.length > 0){
                         var deleteID = myEpisode[0].id;
                         saveEpisodes.delete({ id: deleteID }, function() {
-                            Materialize.toast('Remove Episode from your list', 2500, 'rounded');
                             $scope.serie = {};
                         });
                     }else {
                         var episode = new saveEpisodes($scope.episode);
                         episode.$save(function(response) {
-                            Materialize.toast('Add a your list', 2500, 'rounded');
+                            $scope.serie = {};
                         }, function(error) {
-                            Materialize.toast('Failed add to your list', 2500, 'rounded');
+                            $scope.serie = {};
                         });
                     }
                 });
             };
-
-            $(document).ready(function(){
-                $('.collapsible').collapsible({
-                  accordion : false
-                });
-            });
         });
     }
 })();

@@ -23,6 +23,27 @@
         });
 
         $scope.$on('$ionicView.beforeEnter', function () {
+
+            var today = new Date(),
+            day = today.getDate(),
+            month = today.getMonth() + 1,
+            year = today.getFullYear();
+
+            if(month < 10 && day < 10){
+                var scheduleToday = year + "-0" + month + "-0" + day;
+                $scope.getToday = scheduleToday;
+            } else if(month > 9 && day < 10){
+                var scheduleToday = year + "-" + month + "-0" + day;
+                $scope.getToday = scheduleToday;
+            } else if(month < 10 && day > 9){
+                var scheduleToday = year + "-0" + month + "-" + day;
+                $scope.getToday = scheduleToday;
+            } else {
+                var scheduleToday = year + "-" + month + "-" + day;
+                $scope.getToday = scheduleToday;
+            }
+
+
             if($sessionStorage.oneTime == 0){
                 Series.schedule(null, scheduleToday).then(function(result) {
                     $scope.$apply(function () {
@@ -42,24 +63,7 @@
         
         //console.log(newYork);
 
-        var today = new Date(),
-            day = today.getDate(),
-            month = today.getMonth() + 1,
-            year = today.getFullYear();
-
-        if(month < 10 && day < 10){
-            var scheduleToday = year + "-0" + month + "-0" + day;
-            $scope.getToday = scheduleToday;
-        } else if(month > 9 && day < 10){
-            var scheduleToday = year + "-" + month + "-0" + day;
-            $scope.getToday = scheduleToday;
-        } else if(month < 10 && day > 9){
-            var scheduleToday = year + "-0" + month + "-" + day;
-            $scope.getToday = scheduleToday;
-        } else {
-            var scheduleToday = year + "-" + month + "-" + day;
-            $scope.getToday = scheduleToday;
-        }
+        
 
         function go(path) {
             $state.go(path);
@@ -83,15 +87,16 @@
                 $scope.serie.imdb = imdb;
 
                 if(mySerie.length > 0){
-                    Materialize.toast('Already in your list', 2500, 'rounded');
+                    var deleteID = mySerie[0].id;
+                    mySeries.delete({ id: deleteID }, function() {
+                        $scope.serie = {};
+                    });
                     $scope.serie = {};
                 } else {
                     var serie = new mySeries ($scope.serie);
                     serie.$save(function(response) {
-                        Materialize.toast('Add a your list', 2500, 'rounded');
                         $scope.serie = {};
                     }, function(error) {
-                        Materialize.toast('Already in your list', 2500, 'rounded');
                         $scope.serie = {};
                     });
                 }

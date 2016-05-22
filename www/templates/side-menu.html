@@ -1,6 +1,6 @@
 <ion-side-menus ng-controller="seriesDashboardController">
   <ion-side-menu-content>
-    <ion-nav-bar class="bar-light nav-title-slide-ios7">
+    <ion-nav-bar class="bar-light nav-title-slide-ios7 align-title="center"">
       <ion-nav-buttons class="button-clear">
         <div class="bar bar-header">
           <button class="button icon ion-navicon-round" ng-click="toggleLeft()">
@@ -15,7 +15,7 @@
 
     <!-- Dashboard -->
     <div class="tabs tabs-icon-top light-bg" ng-if="icon == 'series.Dashboard'">
-      <div class="tab-item dark" ng-click="go('series.mySeries');">
+      <div class="tab-item dark" ng-click="go('series.mySeries')">
         <i class="icon ion-android-list"></i>
         My Series
       </div>
@@ -72,7 +72,7 @@
           </div>
           <h4>Welcome {{user.username}}</h4> 
           <div class="item-thumbnail-left dark">
-            <img src="/img/googlePlay.png">
+            <img src=".../img/googlePlay.png">
           </div>
         </div>
         <div class="item item-icon-left dark" ng-click="go('series.Dashboard')">
@@ -88,17 +88,9 @@
           <span class="badge badge-assertive">{{numberSeries}}</span>
           <i class="icon ion-monitor"></i><b>My Series</b>
         </div>
-        
-        <div class="item item-icon-left dark">
-          <i class="icon ion-android-search"></i><b>Search Series</b>
-        </div>
 
         <div class="item item-icon-left dark" ng-click="go('series.profile')">
           <i class="icon ion-person"></i><b>Account</b>
-        </div>
-        
-        <div class="item item-icon-left dark">
-          <i class="icon ion-android-download"></i><b>Download our app</b>
         </div>
         
       </ion-list>

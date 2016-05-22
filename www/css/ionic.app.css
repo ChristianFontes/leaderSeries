@@ -9781,10 +9781,10 @@ a.button {
 
 .login-container {
   background-size: cover;
-  background: url("../img/b7.jpg") center; }
+  background-color: #263238; }
   .login-container .app-icon {
     background-color: #fff;
-    background: url("../img/logo.png") center;
+    background: url("/img/logo.png") center;
     background-size: cover;
     border-radius: 50%;
     margin: 0 auto;
@@ -9862,14 +9862,8 @@ a.button {
 
 .premieres-container {
   background-size: cover;
-  background-color: #009688;
+  background-color: #263238;
   margin-bottom: 40px; }
-  .premieres-container .list-card {
-    float: left;
-    margin: 5px;
-    width: 240px;
-    height: auto;
-    border-radius: 15%; }
   .premieres-container .size-image {
     height: 160px;
     max-width: 160px;
@@ -9877,22 +9871,36 @@ a.button {
     margin-right: auto;
     margin-bottom: 5px;
     margin-top: 5px; }
+  .premieres-container ::-webkit-input-placeholder {
+    color: #fff; }
   .premieres-container .tittle {
     background-color: transparent !important;
     border: none; }
   .premieres-container .card {
     background-color: transparent !important; }
   .premieres-container .item {
-    opacity: 0.9; }
+    background-color: transparent !important;
+    border-color: transparent !important; }
   .premieres-container .size-flag {
     width: 20px;
     height: 20px; }
-  .premieres-container h7 {
-    font-style: italic; }
   .premieres-container title-card {
-    color: #FF6F00; }
+    color: #FF6F00;
+    border-color: transparent !important; }
   .premieres-container .title-card {
-    color: #000000; }
+    color: #fff; }
+  .premieres-container .margin-separate {
+    margin-top: -40px; }
+  .premieres-container .margin-avatar {
+    margin-top: -20px; }
+  .premieres-container .margin-search {
+    margin-top: -30px;
+    margin-bottom: 20px;
+    color: #fff; }
+  .premieres-container .padding-bottom {
+    padding-bottom: 10%; }
+  .premieres-container .align-buttom {
+    text-align: right; }
 
 .sideMenu-container {
   background-size: cover;
@@ -9917,223 +9925,134 @@ a.button {
 
 .mySeries-container {
   background-size: cover;
-  background-color: #009688; }
+  background-color: #263238;
+  margin-bottom: 40px; }
   .mySeries-container .size-image {
     border-radius: 20%; }
-  .mySeries-container .title-card {
-    padding-top: 20px;
-    margin-left: 25px; }
-  .mySeries-container .border {
-    border-radius: 20%; }
-  .mySeries-container .image-align {
-    padding-left: 10%;
-    padding-right: 10%; }
-  .mySeries-container h7 {
-    color: #3C948B;
-    font-style: italic; }
-  .mySeries-container h2 {
-    color: #FF5500; }
-  .mySeries-container h3 {
-    color: #0089FF;
-    text-align: right; }
-  .mySeries-container .date {
-    color: #000000;
-    text-align: right;
-    padding-right: 30px; }
-  .mySeries-container .dark-inside {
-    padding-top: 10px;
-    color: #000000;
-    padding-bottom: 10px; }
-  .mySeries-container .inside {
-    padding-right: 40px;
-    text-align: justify; }
-  .mySeries-container .date-nextEpisode {
-    color: #000000;
-    text-align: left; }
-  .mySeries-container .padding-top {
-    padding-top: 10px; }
   .mySeries-container .item {
     margin-left: 7px;
-    margin-right: 7px; }
+    margin-right: 7px;
+    background-color: transparent !important;
+    border-color: transparent !important; }
   .mySeries-container .lastEpisodeSeen {
     border-bottom-right-radius: 2em;
     border-bottom-left-radius: 2em; }
+  .mySeries-container .tittle {
+    background-color: transparent !important;
+    border: none; }
+  .mySeries-container h5 {
+    color: #0089FF;
+    text-align: right;
+    padding-right: 20px; }
+  .mySeries-container .justify {
+    text-align: justify;
+    padding-right: 20px;
+    padding-left: 20px; }
+  .mySeries-container .image-align {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%; }
+  .mySeries-container .position-delete {
+    margin-bottom: -100px;
+    text-align: right; }
+  .mySeries-container .align-buttom {
+    text-align: right; }
 
 .currentSerie-container {
   background-size: cover;
-  background-color: #009688;
+  background-color: #263238;
   margin-bottom: 40px; }
+  .currentSerie-container .tittle {
+    background-color: transparent !important;
+    border: none; }
+  .currentSerie-container .size-card {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: -30px; }
   .currentSerie-container .card {
     text-align: justify;
     padding-left: 25px;
     padding-top: 25px;
     padding-bottom: 25px;
-    padding-right: 25px; }
-  .currentSerie-container .item {
-    opacity: 0.8; }
-  .currentSerie-container .size-card {
-    display: table;
-    margin: 0 auto;
-    padding-top: 10px;
-    width: 500px; }
-  .currentSerie-container .size-image {
-    max-width: 200px;
-    height: auto;
-    margin: 0 auto; }
-  .currentSerie-container .tittle {
-    text-align: center; }
-  .currentSerie-container .summary {
-    background-color: white;
-    opacity: 0.8;
-    padding-top: 10px;
-    margin-top: 10px;
-    text-align: center;
-    max-width: 500px; }
-  .currentSerie-container .list-item-card {
-    text-align: left;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 10px; }
-  .currentSerie-container .title-nav {
-    margin-left: 25px;
-    padding-top: 15px;
-    color: #ffffff;
-    font-style: italic; }
-  .currentSerie-container .ul-nav {
-    margin-top: -30px;
-    padding-right: 25px; }
-  .currentSerie-container .text-in-box {
-    text-align: justify; }
-  .currentSerie-container channel {
-    color: #3C948B;
-    font-style: italic; }
-  .currentSerie-container weekday {
-    padding-left: 0%; }
-  .currentSerie-container td {
-    padding-top: 10px;
-    padding-left: 25px;
-    padding-bottom: 10px; }
-  .currentSerie-container tr {
-    background-color: #ffffff; }
-  .currentSerie-container th {
-    padding-left: 25px;
-    font-style: italic; }
+    padding-right: 25px;
+    background-color: transparent !important;
+    border-color: none;
+    color: #fff; }
   .currentSerie-container .today {
-    color: #3C948B;
+    color: #33cd5f;
+    padding-left: 20%; }
+  .currentSerie-container .buttom-right {
+    text-align: right; }
+  .currentSerie-container channel {
+    color: #11c1f3;
     font-style: italic; }
-  .currentSerie-container .soon {
-    color: red;
-    font-style: italic; }
-  .currentSerie-container .separe {
-    padding-left: 80px; }
-  .currentSerie-container .card-style {
-    border-radius: 10%; }
-  .currentSerie-container .separate-table {
-    padding-top: 10px; }
+  .currentSerie-container .style {
+    border-color: transparent !important;
+    margin-left: -5%;
+    margin-top: -7%; }
+  .currentSerie-container .item {
+    background-color: transparent !important;
+    border-color: transparent !important; }
 
 .episodes-container {
   background-size: cover;
-  background-color: #009688;
+  background-color: #263238;
   margin-bottom: 40px; }
-  .episodes-container .list .item.item-accordion {
-    line-height: 38px;
-    padding-top: 0;
-    padding-bottom: 0;
-    transition: 0.09s all linear; }
-  .episodes-container .list .item.item-accordion.ng-hide {
-    line-height: 0px; }
-  .episodes-container .list .item.item-accordion.ng-hide-add,
-  .episodes-container .list .item.item-accordion.ng-hide-remove {
-    display: block !important; }
-  .episodes-container .body-card {
-    padding-left: 25px;
-    padding-top: 10px;
-    padding-bottom: 10px; }
-  .episodes-container .list-episodes {
-    padding-right: 35px; }
-  .episodes-container .date-list-episodes {
-    padding-right: 35px;
+  .episodes-container .tittle {
+    background-color: transparent !important;
+    border: none; }
+  .episodes-container .align-button {
     text-align: right; }
-  .episodes-container .align-image {
-    padding-left: 15%; }
-  .episodes-container color {
-    color: #3C948B;
-    font-style: italic; }
-  .episodes-container h3 {
-    color: #4E4E4E;
+  .episodes-container .center {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%; }
+  .episodes-container .card {
+    padding: 5%;
+    margin-top: -10px;
+    margin-bottom: -10px; }
+  .episodes-container .justify {
+    text-align: justify; }
+  .episodes-container .style-list {
+    color: #ef473a;
     text-align: right;
-    padding-right: 50px; }
-  .episodes-container .title-card {
-    padding-top: 20px;
-    margin-left: 25px;
-    font-style: italic; }
+    margin-top: -20px; }
+  .episodes-container .style-list-episode {
+    color: #fff;
+    margin-left: -25px;
+    margin-top: -30px; }
+  .episodes-container .item {
+    border-color: transparent !important;
+    background-color: transparent !important; }
+  .episodes-container .button-right {
+    background-color: transparent !important;
+    margin-left: -70px;
+    margin-top: -30px; }
+  .episodes-container .align-season {
+    text-align: center; }
 
 .dashboard-container {
   background-size: cover;
-  background-color: #009688;
+  background-color: #263238;
   margin-bottom: 40px; }
-  .dashboard-container .list-card {
-    float: left;
-    margin: 5px;
-    width: 240px;
-    height: auto; }
-  .dashboard-container .cardleft {
-    float: left;
-    width: 500px;
-    height: 300px;
-    margin-right: 30px;
-    margin-left: 30px;
-    border-radius: 20%; }
-  .dashboard-container .cardright {
-    float: left;
-    width: 500px;
-    height: 300px;
-    margin-left: 30px;
-    margin-right: 30px;
-    border-radius: 20%; }
-  .dashboard-container .intoCard {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    margin-top: 25%;
-    margin-bottom: 25%; }
-  .dashboard-container .title-card {
-    padding-top: 20px;
-    margin-left: 25px; }
-  .dashboard-container h7 {
-    color: #3C948B;
-    font-style: italic; }
-  .dashboard-container h3 {
-    color: #303030; }
-  .dashboard-container .color-date {
-    color: #F92D36; }
-  .dashboard-container i {
-    font-size: 18px; }
-  .dashboard-container .item {
-    margin-left: 7px;
-    margin-right: 7px; }
-  .dashboard-container .title-search {
-    padding-top: 20px;
-    margin-left: 25px; }
-  .dashboard-container .item-input {
+  .dashboard-container .tittle {
     background-color: transparent !important;
-    border-color: transparent !important;
-    padding-bottom: 10px;
-    float: right;
-    margin-top: -35px;
-    padding-left: 15px; }
+    border: none;
+    margin-top: 35px; }
   .dashboard-container ::-webkit-input-placeholder {
-    /* WebKit, Blink, Edge */
+    color: #fff; }
+  .dashboard-container h2 {
+    color: #FF6F00; }
+  .dashboard-container .item {
+    background-color: transparent !important;
+    border: transparent !important; }
+  .dashboard-container h7 {
+    color: #64FFDA; }
+  .dashboard-container h3 {
     color: #ffffff; }
-  .dashboard-container :-moz-placeholder {
-    /* Mozilla Firefox 4 to 18 */
-    color: #ffffff; }
-  .dashboard-container ::-moz-placeholder {
-    /* Mozilla Firefox 19+ */
-    color: #ffffff; }
-  .dashboard-container :-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: #ffffff; }
+  .dashboard-container .color-date {
+    color: #EEEEEE; }
 
 .addSeries-container {
   background-size: cover;
@@ -10183,7 +10102,7 @@ a.button {
 
 .profile-container {
   background-size: cover;
-  background-color: #009688; }
+  background-color: #263238; }
   .profile-container .logo-preview {
     text-align: center;
     position: relative;
@@ -10250,9 +10169,13 @@ a.button {
     margin-left: auto;
     margin-right: auto; }
   .profile-container .validation {
-    display: block;
-    padding-right: 25px; }
+    border-color: #33cd5f; }
   .profile-container .center {
-    width: 700px;
-    margin-left: auto;
-    margin-right: auto; }
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%; }
+  .profile-container .buttom-align {
+    text-align: right; }
+  .profile-container .tittle {
+    background-color: transparent !important;
+    border: none; }

@@ -1,14 +1,8 @@
 .premieres-container{
   background-size: cover;
-  background-color: #009688;
+  background-color: #263238;
   margin-bottom: 40px;
-  .list-card{
-  	float: left;
-  	margin: 5px;
-    width: 240px;
-    height: auto; 
-    border-radius: 15%;
-  }
+
   .size-image{
   	height: 160px; 
   	max-width: 160px;
@@ -17,27 +11,57 @@
   	margin-bottom: 5px;
   	margin-top: 5px;
   }
+
+  ::-webkit-input-placeholder {
+    color: $light;
+  }
+
   .tittle { 
   	background-color: transparent !important;
   	border: none;
   }
+
   .card {
   	background-color: transparent !important;
   }
+
   .item{
-  	opacity: 0.9;
+    background-color: transparent !important;
+    border-color: transparent !important;
   }
+
   .size-flag{
     width: 20px;
     height: 20px;
   }
-  h7 {
-    font-style: italic;
-  }
+
   title-card{
     color: #FF6F00;
+    border-color: transparent !important;
   }
+
   .title-card {
-     color: #000000;
+    color: $light;
+  }
+
+  .margin-separate {
+    margin-top: -40px;
+  }
+
+  .margin-avatar {
+    margin-top: -20px;
+  }
+
+  .margin-search {
+    margin-top: -30px;
+    margin-bottom: 20px;
+    color: $light;
+  }
+  .padding-bottom {
+    padding-bottom: 10%;
+  }
+
+  .align-buttom {
+    text-align: right;
   }
 }

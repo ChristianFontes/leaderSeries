@@ -26,7 +26,7 @@
       abstract: true,
       templateUrl: 'templates/side-menu.html',
       data: {
-        access: 'protected'
+        access: 'public'
       }
     })
     .state('series.Dashboard', {

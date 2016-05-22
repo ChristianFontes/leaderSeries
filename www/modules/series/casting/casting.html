@@ -1,4 +1,4 @@
-<ion-view view-title="Casting" view-cached="false">
+<ion-view view-cached="false">
     <ion-content class="casting-container padding">
         <div class="row">
         	<div class="col" ng-if="error">
@@ -13,7 +13,6 @@
 				<div class="nav-wrapper">
 					<h4 class="title-card light"><b>Persons & Characteres </b></h4>
 				</div>
-			
 	        	<div class="card list-card" ng-repeat="cast in casting">
 	        		<div class="card-image">
 	                    <img class="size-image" ng-if="cast.person.image.medium" 

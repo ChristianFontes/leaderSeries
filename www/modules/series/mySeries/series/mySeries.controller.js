@@ -51,7 +51,7 @@
                     limit2 = user.progressSeries.length;
 
                 for (var i = limit - 1; i >= 0; i--) {
-                    var id = user.series[i].serie_id,
+                    var id = user.series[i].serie.id,
                         imdb = user.series[i].imdb,
                         userID = user.id;
 

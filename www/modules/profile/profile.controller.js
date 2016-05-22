@@ -102,12 +102,11 @@
 
         function updateAccount(form) {
             if (!form.$invalid) {
-                console.log($scope.data);
                 var user = new User($scope.data);    
-                    user.$update({id: $sessionStorage.sessionUser.user.id},function (response) {
-                    $state.go('series.profile');
-                    $scope.data = "";
-                    $state.reload(true);
+                user.$update({id: $sessionStorage.sessionUser.user.id},function (response) {
+                        $state.go('series.profile');
+                        $scope.data = {};
+                        $state.reload(true);
                 }, function (error) {
                     $scope.err = error;
                 });

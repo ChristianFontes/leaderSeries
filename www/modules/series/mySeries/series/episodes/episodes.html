@@ -1,84 +1,102 @@
-<ion-view view-title="Episodes List">
+<ion-view>
     <ion-content class="episodes-container">
-		<div class="row">
-		<ion-list class="col col-75">
-		<nav>
-			<div class="nav-wrapper">
-				<h4 class="title-card light"><b>Seasons & Episodes</b></h4>
+    <div class="row">
+    	<div class="col col-85">
+            <div class="item item-icon-left tittle light">
+                <i class="icon ion-information-circled"></i>
+                <b>Serie information</b>
+            </div>
+        </div>
+        <div class="col col-15 align-button">
+            <button class="button button-assertive" 
+                ng-click="showInfo = true" 
+                ng-show="!showInfo">
+                <i class="icon ion-plus-round"></i>
+            </button>
+            <button class="button button-assertive" 
+                ng-click="showInfo = false" 
+                ng-show="showInfo">
+                <i class="icon ion-minus-round"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row" ng-if="showInfo">
+    	<div class="col">
+      		<img class="size-image center" ng-src="{{data.image.medium}}">
+            <div class="item tittle light center">
+                <b>{{data.name}}</b>
+            </div>
+            <div class="card">
+	            Status: {{data.status}}<br>
+				Premiered: {{data.premiered}}<br>
+				Network: {{data.network.name}}
 			</div>
-		</nav>
+			<div class="item tittle light center" ng-if="data.schedule.days[0]">
+                <b>Schedule</b>
+            </div>
+            <div class="card" ng-if="data.schedule.days[0]">
+            	{{data.schedule.days[0]}}
+			  	{{data.schedule.days[1]}}
+			  	{{data.schedule.days[2]}}
+			  	{{data.schedule.days[3]}}
+			  	{{data.schedule.days[4]}}
+			  	{{data.schedule.days[5]}}
+			  	{{data.schedule.days[6]}}
+			</div>
+			<div class="item tittle light center" ng-if="data.summary">
+                <b>Summary</b>
+            </div>
+			<div class="card justify" ng-if="data.summary">
+	            {{data.summary}}
+			</div>
+      	</div>
+      	</div>
+    </div>
+    <div class="row" ng-if="!showInfo">
+    	<ion-list class="col">
         <div ng-repeat="season in listSeasons">
           	<ion-item class="item-stable"
                     ng-click="toggleGroup(season)"
-                    ng-class="{active: isGroupShown(season)}">
-            	<i class="icon" ng-class="isGroupShown(season) ? 'ion-minus' : 'ion-plus'"></i>
-            	Season {{season.number}}
+                    ng-class="{active: isGroupShown(season)}" ng-if="season.premiereDate">
+            	<h2 class="style-season-list light">
+            		<i class="icon assertive" 
+            			ng-class="isGroupShown(season) ? 'ion-minus' : 'ion-plus'">
+            		</i>
+            		<span class="stable"><b>Season # {{season.number}}</b></span>
+            	</h2>
+            	<h3 class="align-season light"><b>{{season.premiereDate}} to 
+            	   {{season.endDate}}</b>
+            	</h3>
             	<!--
             	<div class="item-icon-right"
             		ng-click="toggleEye(season)"
                    	ng-class="{active: view(season)}">
                     <button class="icon button button-icon ion-eye">
                     </button>
-                </div>
-                -->
+                </div> -->
           	</ion-item>
           	<div class="item-accordion"
-                ng-repeat="episode in listEpisodes | filter:{ season:season.number }"
+                ng-repeat="episode in list | filter:{ season:season.number }"
                 ng-show="isGroupShown(season)">
                 <div class="item item-text-wrap">
-	                <h2>{{season.number}}x{{episode.number}}: 
-	                	<color><b>{{episode.name}}</b></color>
-	                </h2>
-	                <div class="item-icon-right" 
-	                	ng-repeat="progress in progressSeries"
-	                	ng-click="toggleEye(episode)">
-	                	<i class="icon ion-eye-disabled"
-	                		ng-if="episode.id == progress.episodeId">
-                		</i>
-                		<i class="icon ion-eye"
-                			ng-if="episode.id != progress.episodeId">
-                		</i>
-            		</div>
-            		<h3>{{episode.airstamp | date:"MMM/dd/yyyy 'at' h:mma"}}</h3>
+                <div class="row">
+	                <div class="col col-90">
+		                <h2 class="style-list-episode">
+                        <b><span class="energized">{{season.number}}x{{episode.number}}:</span>
+		                	{{episode.name}}
+		                </b></h2>
+		            </div>
+	            	<div class="col col-10">
+						<ion-toggle class="button-right" toggle-class="toggle-calm" 
+	                		ng-checked="episode.viewed" ng-click="toggleEye(episode)">
+	                	</ion-toggle>
+	                </div>
+                </div>
+                <h3 class="style-list">{{episode.airstamp | date:"MMM/dd/yyyy 'at' h:mma"}}</h3><hr>
 	            </div>
           	</div>
         </div>
       	</ion-list>
-      	<div class="col col-25">
-      		<img class="size-image align-image" ng-src="{{data.image.medium}}">
-      		<ul class="collapsible" data-collapsible="accordion">
-				<li>
-				  <div class="collapsible-header"><i class="ion-ios-information-outline"></i>
-				  	{{data.name}}
-				  </div>
-				  <div class="collapsible-body body-card light-bg">
-				  	Status: {{data.status}}<br>
-				  	Premiered: {{data.premiered}}<br>
-				  	Network: {{data.network.name}}
-				  </div>
-				</li>
-				<li>
-				  <div class="collapsible-header"><i class="ion-android-alarm-clock"></i>
-				  	Schedule
-				  </div>
-				  <div class="collapsible-body body-card light-bg">
-				  	{{data.schedule.days[0]}}
-				  	{{data.schedule.days[1]}}
-				  	{{data.schedule.days[2]}}
-				  	{{data.schedule.days[3]}}
-				  	{{data.schedule.days[4]}}
-				  	{{data.schedule.days[5]}}
-				  	{{data.schedule.days[6]}}
-				  </div>
-				</li>
-				<li>
-				  <div class="collapsible-header"><i class="ion-ios-book-outline"></i>
-				  	Summary
-				  </div>
-				  <div class="collapsible-body light-bg"><p>{{data.summary}}</p></div>
-				</li>
-			</ul>
-      	</div>
-      	</div>
+    </div>
     </ion-content>
 </ion-view>

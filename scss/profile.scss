@@ -1,6 +1,6 @@
 .profile-container{
     background-size: cover;
-    background-color: #009688;
+    background-color: #263238;
     .logo-preview{
         text-align: center;
         position: relative;
@@ -86,13 +86,22 @@
     }
 
     .validation{
-        display: block;
-        padding-right: 25px;
+        
+        border-color: $balanced;
     }
 
     .center {
-        width: 700px ;
-        margin-left: auto ;
-        margin-right: auto ;
+        width: 98%;
+        margin-left: 1%;
+        margin-right: 1%;
+    }
+
+    .buttom-align {
+        text-align: right;
+    }
+
+    .tittle { 
+        background-color: transparent !important;
+        border: none;
     }
 }

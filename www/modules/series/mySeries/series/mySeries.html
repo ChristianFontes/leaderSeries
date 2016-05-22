@@ -1,91 +1,113 @@
-<ion-view view-title="My Series List">
+<ion-view>
     <ion-content class="mySeries-container">
         <div class="row">
-	        <div class="col col-60">
-	        <nav>
-				<div class="nav-wrapper">
-					<h4 class="title-card light"><b>My Series</b></h4>
-					<div class="item-icon-right">
-                        <button class="icon button button-icon ion-plus-round light"
-                        	ng-click="go('series.addSeries')">
-                        </button>
-                    </div>
-				</div>
-	        	<div class="list list-series">
-				    <div class="item item-thumbnail-left" ng-repeat="series in user.series">
+        	<div class="col col-85">
+	            <div class="item item-icon-left tittle light">
+	                <i class="icon ion-android-done-all balanced"></i>
+	                <b>My Last Episode Seen</b>
+	            </div>
+	        </div>
+            <div class="col col-15 align-buttom">
+                <button class="button button-assertive" 
+                    ng-click="showSearch = true" 
+                    ng-show="!showSearch">
+                    <i class="icon ion-plus-round"></i>
+                </button>
+                <button class="button button-assertive" 
+                    ng-click="showSearch = false" 
+                    ng-show="showSearch">
+                    <i class="icon ion-minus-round"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row" ng-if="showSearch">
+            <div ng-repeat="series in user.series">
+            	<div ng-repeat="episode in user.progressSeries"
+        			ng-if="$last && series.serie.externals.imdb == episode.serieIMDB"
+        			ng-click="setCurrentSerie(series)">
+		        	<div class="item item-thumbnail-left lastEpisodeSeen">
 					    <img class="size-image" ng-if="series.serie.image.medium" 
 		                    ng-src="{{series.serie.image.medium}}">
 		                <img class="size-image" 
 		                    ng-if="!series.serie.image.medium"
 		                    ng-src="/img/noImage.png">
-		                <div ng-click="setCurrentSerie(series)">
-							<h7><b>{{series.serie.name}}</b></h7>
-							<div class="item-text-wrap inside">
+		                <h7 class="assertive"><b>{{series.serie.name}}</b>
+		                </h7>
+		                <h2 class="calm">{{episode.info.season}}x{{episode.info.number}} {{episode.info.name}}</h2>
+		                <h3 class="light">
+		                	<b>{{episode.info.airstamp | date:'EEEE, MMMM d, y'}}</b>
+		                </h3>
+		            </div>
+		                <img class="image-align" ng-if="episode.info.image.medium"
+			                ng-src="{{episode.info.image.medium}}">
+		                <div class="item-text-wrap justify">
+		                	<h7 class="light"><b>{{episode.info.summary}}</b></h7>
+		                </div>
+		                <h5 class="icon ion-android-done-all">
+		                	{{episode.updatedAt | date:'EEEE, MMMM d, y'}}
+		                </h5>
+			    </div>
+        	</div>
+        </div>
+        <div class="row" ng-if="!showSearch">
+        	<div class="col">
+	            <div class="item item-icon-left tittle light">
+	                <i class="icon ion-android-list light"></i>
+	                <b>My List Series</b>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="row" ng-if="!showSearch">
+        	<div class="col list list-series">
+		    <div class="item item-thumbnail-left" ng-repeat="series in user.series">
+			    <img class="size-image" ng-if="series.serie.image.medium" 
+                    ng-src="{{series.serie.image.medium}}">
+                <img class="size-image" 
+                    ng-if="!series.serie.image.medium"
+                    ng-src="/img/noImage.png">
+                <div ng-click="setCurrentSerie(series)">
+					<h7 class="calm"><b>{{series.serie.name}}</b></h7>
+					<div class="item-text-wrap inside">
 
-							<div ng-repeat="episode in nextEpisode"
-								 ng-if="episode.id == series.serie.id">
-								<h3 class="date-nextEpisode padding-top"
-									ng-if="episode._embedded.nextepisode.season">
-									Next Episode:
-								</h3>
-					    		<h7 ng-if="episode._embedded.nextepisode.season < 10 && episode._embedded.nextepisode.number < 10">
-							    	0{{episode._embedded.nextepisode.season}}x0{{episode._embedded.nextepisode.number}}
-							    </h7>
-							    <h7 ng-if="episode._embedded.nextepisode.season > 9 && episode._embedded.nextepisode.number < 10">
-							    	{{episode._embedded.nextepisode.season}}x0{{episode._embedded.nextepisode.number}}
-							    </h7>
-							    <h7 ng-if="episode._embedded.nextepisode.season > 9 && episode._embedded.nextepisode.number > 9">
-							    	{{episode._embedded.nextepisode.season}}x{{episode._embedded.nextepisode.number}}
-							    </h7>
-							    <h7 ng-if="episode._embedded.nextepisode.season < 10 && episode._embedded.nextepisode.number > 9">
-							    	0{{episode._embedded.nextepisode.season}}x{{episode._embedded.nextepisode.number}}
-							    </h7>
-							    <h7>{{episode._embedded.nextepisode.name}}</h7>
-							    <h3 class="date-nextEpisode">
-							    	{{episode._embedded.nextepisode.airstamp | date:"EEEE, MMMM d, y"}}
-							    </h3>
-							    <h3 class="date">{{series.serie.network.name}} / 
-								{{episode._embedded.nextepisode.airstamp | date:"h:mma"}}</h3>
-							</div>
-							</div>
-						</div>
-						<div class="item-icon-right">
-                            <button class="icon button button-icon ion-android-close assertive" 	ng-click="deleteSerie(series)">
-                            </button>
-                        </div>
-				    </div>
+					<div ng-repeat="episode in nextEpisode"
+						 ng-if="episode.id == series.serie.id">
+						<h3 class="date-nextEpisode padding-top light"
+							ng-if="episode._embedded.nextepisode.season">
+							<b>Next Episode:</b>
+						</h3>
+			    		<h7 class="balanced"
+			    			ng-if="episode._embedded.nextepisode.season < 10 && episode._embedded.nextepisode.number < 10">
+					    	0{{episode._embedded.nextepisode.season}}x0{{episode._embedded.nextepisode.number}}
+					    </h7>
+					    <h7 class="balanced"
+					    	ng-if="episode._embedded.nextepisode.season > 9 && episode._embedded.nextepisode.number < 10">
+					    	{{episode._embedded.nextepisode.season}}x0{{episode._embedded.nextepisode.number}}
+					    </h7>
+					    <h7 class="balanced"
+					    	ng-if="episode._embedded.nextepisode.season > 9 && episode._embedded.nextepisode.number > 9">
+					    	{{episode._embedded.nextepisode.season}}x{{episode._embedded.nextepisode.number}}
+					    </h7>
+					    <h7 class="balanced"
+					    	ng-if="episode._embedded.nextepisode.season < 10 && episode._embedded.nextepisode.number > 9">
+					    	0{{episode._embedded.nextepisode.season}}x{{episode._embedded.nextepisode.number}}
+					    </h7>
+					    <h7 class="balanced">{{episode._embedded.nextepisode.name}}</h7>
+					    <h3 class="light"><b>
+					    	{{episode._embedded.nextepisode.airstamp | date:"EEEE, MMMM d, y"}}</b>
+					    </h3>
+					    <h3 class="light"><b>
+					    	{{series.serie.network.name}} / 
+							{{episode._embedded.nextepisode.airstamp | date:"h:mma"}}</b>
+						</h3>
+					</div>
+					</div>
 				</div>
-			</nav>
-	        </div>
-	        <div class="col col-40">
-	        <nav>
-				<div class="nav-wrapper">
-					<h4 class="title-card light"><b>My Last Episode Seen</b></h4>
-				</div>
-	        	<div ng-repeat="series in user.series">
-		        	<div class="item item-thumbnail-left lastEpisodeSeen"  
-		        			ng-repeat="episode in user.progressSeries"
-		        			ng-if="$last && series.serie.externals.imdb == episode.serieIMDB"
-					    	ng-click="setCurrentSerie(series)">
-						    <img class="size-image" ng-if="series.serie.image.medium" 
-			                    ng-src="{{series.serie.image.medium}}">
-			                <img class="size-image" 
-			                    ng-if="!series.serie.image.medium"
-			                    ng-src="/img/noImage.png">
-			                <h7><b>{{series.serie.name}}</b>
-			                </h7>
-			                <h2>{{episode.info.season}}x{{episode.info.number}} {{episode.info.name}}</h2>
-			                <h3><date>{{episode.info.airstamp | date:'EEEE, MMMM d, y'}}</date></h3><hr>
-			                <img class="image-align" ng-if="episode.info.image.medium"
-			                	ng-src="{{episode.info.image.medium}}">
-			                <div class="item-text-wrap">
-			                	<h3 class="dark-inside inside">{{episode.info.summary}}</h3>
-			                </div>
-			                <h3 class="icon ion-android-done-all">{{episode.updatedAt | date:'EEEE, MMMM d, y'}}</h3>
-			        </div>
-	        	</div>
-	        </nav>
-	        </div>
-		</div>
+				<div class="item-icon-right position-delete">
+                    <button class="icon button button-icon ion-android-close assertive" 	ng-click="deleteSerie(series)">
+                    </button>
+                </div>
+		    </div>
+        </div>
+		</div> 
     </ion-content>
 </ion-view>
