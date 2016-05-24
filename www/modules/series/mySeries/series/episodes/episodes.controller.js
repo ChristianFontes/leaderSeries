@@ -5,9 +5,10 @@
 
     function controller(
         $stateParams, $rootScope, $filter, $http, $scope, $window, $state, $sessionStorage, 
-        $ionicSideMenuDelegate, User, Series, progressSeries, saveEpisodes){
-        $scope.$on('$ionicView.beforeEnter', function () {
+        $ionicSideMenuDelegate, User, Series, progressSeries, saveEpisodes, $ionicLoading){
 
+        $scope.$on('$ionicView.beforeEnter', function () {
+            $ionicLoading.show();
             $scope.go = go;
             $scope.user = {};
             $scope.episodes = {};
@@ -45,6 +46,7 @@
                 $scope.$apply(function () {
                     if(data){
                         $scope.data = data;
+                        $ionicLoading.hide();
                     } else {
                         console.log("No imdb");
                     }
@@ -54,6 +56,7 @@
             Series.showSeasonList(id).then(function(result) {
                 $scope.$apply(function () {
                     $scope.listSeasons = result;
+                    $ionicLoading.hide();
                 });
             });
 
@@ -85,12 +88,13 @@
                         $.each($scope.listEpisodes, function(i, el){
                             if($.inArray(el, $scope.list) === -1) $scope.list.push(el);
                         });
+                        $ionicLoading.hide();
                     });
                 });
             });
 
             $scope.toggleEye = function(episode) {
-
+                $ionicLoading.show();
                 var userID = $sessionStorage.sessionUser.user.id,
                     episodeId = episode.id,
                     mySerie = $scope.data,
@@ -110,13 +114,16 @@
                         var deleteID = myEpisode[0].id;
                         saveEpisodes.delete({ id: deleteID }, function() {
                             $scope.serie = {};
+                            $ionicLoading.hide();
                         });
                     }else {
                         var episode = new saveEpisodes($scope.episode);
                         episode.$save(function(response) {
                             $scope.serie = {};
+                            $ionicLoading.hide();
                         }, function(error) {
                             $scope.serie = {};
+                            $ionicLoading.hide();
                         });
                     }
                 });

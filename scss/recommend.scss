@@ -1,0 +1,27 @@
+.recommend-container{
+  background-size: cover;
+  background-color: #263238;
+
+  .tittle { 
+    background-color: transparent !important;
+    border: none;
+  }
+
+  .item {
+    background-color: transparent !important;
+    border: transparent !important;
+  }
+
+  .format {
+  	margin-bottom: -80px;
+  	margin-top: 20px;
+  }
+
+  color{
+  	color: $light;
+  }
+
+  .text-right {
+  	text-align: right;
+  }
+}

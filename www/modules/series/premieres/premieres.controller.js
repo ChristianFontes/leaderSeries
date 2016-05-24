@@ -5,29 +5,26 @@
 
     function controller(
         $stateParams, $rootScope, $filter, $http, $scope, $window, mySeries, $ionicHistory, 
-        $state, $sessionStorage, $ionicSideMenuDelegate, User, Series, userSeries){
-        $scope.go = go;
-        $scope.user = {};
-        $scope.series = [];
-        $scope.setCurrentSerie = setCurrentSerie;
-        $scope.currentSerie = {};
-        $scope.selected = selected;
-        $sessionStorage.oneTime = 0;
-        $scope.data = {};
-        $scope.serie = {};
-        $scope.data.serie_id = {};
-
-        $rootScope.$on('$stateChangeSuccess',
-          function(event, toState, toParams, fromState, fromParams) {
-            $scope.icon = toState.name;
-        });
+        $state, $sessionStorage, $ionicSideMenuDelegate, User, Series, userSeries, $ionicLoading){
+        
 
         $scope.$on('$ionicView.beforeEnter', function () {
+            $scope.go = go;
+            $scope.user = {};
+            $scope.series = [];
+            $scope.setCurrentSerie = setCurrentSerie;
+            $scope.currentSerie = {};
+            $scope.selected = selected;
+            $scope.data = {};
+            $scope.serie = {};
+            $scope.data.serie_id = {};
+
+            $ionicLoading.show();
 
             var today = new Date(),
-            day = today.getDate(),
-            month = today.getMonth() + 1,
-            year = today.getFullYear();
+                day = today.getDate(),
+                month = today.getMonth() + 1,
+                year = today.getFullYear();
 
             if(month < 10 && day < 10){
                 var scheduleToday = year + "-0" + month + "-0" + day;
@@ -43,22 +40,53 @@
                 $scope.getToday = scheduleToday;
             }
 
+            Series.schedule(null, scheduleToday)
+            .then(function(result) {
+                    $scope.$apply(function () {
+                        $sessionStorage.schedule = result;
+                        $scope.series = $sessionStorage.schedule;
+                        $ionicLoading.hide();
+                    });
+            });
 
-            if($sessionStorage.oneTime == 0){
+            $scope.doRefresh = function() {
+                $ionicLoading.show();
+
+                var today = new Date(),
+                day = today.getDate(),
+                month = today.getMonth() + 1,
+                year = today.getFullYear();
+
+                if(month < 10 && day < 10){
+                    var scheduleToday = year + "-0" + month + "-0" + day;
+                    $scope.getToday = scheduleToday;
+                } else if(month > 9 && day < 10){
+                    var scheduleToday = year + "-" + month + "-0" + day;
+                    $scope.getToday = scheduleToday;
+                } else if(month < 10 && day > 9){
+                    var scheduleToday = year + "-0" + month + "-" + day;
+                    $scope.getToday = scheduleToday;
+                } else {
+                    var scheduleToday = year + "-" + month + "-" + day;
+                    $scope.getToday = scheduleToday;
+                }
+
                 Series.schedule(null, scheduleToday).then(function(result) {
                     $scope.$apply(function () {
                         $sessionStorage.schedule = result;
                         $scope.series = $sessionStorage.schedule;
+                        $ionicLoading.hide();
                     });
                 });
-                $sessionStorage.oneTime = 1;
+                
+                $scope.$broadcast('scroll.refreshComplete');
             }
         });
-
+/*
         var user = User.get({id: $sessionStorage.sessionUser.user.id}, function () {
             $scope.user = user;
         });
-        
+        */
         //var newYork = new Date().toLocaleString("en-GB", {timeZone: "America/New_York"});
         
         //console.log(newYork);
@@ -87,14 +115,12 @@
                 $scope.serie.imdb = imdb;
 
                 if(mySerie.length > 0){
-                    var deleteID = mySerie[0].id;
-                    mySeries.delete({ id: deleteID }, function() {
-                        $scope.serie = {};
-                    });
+                    Materialize.toast('It is already on your list', 3000, 'rounded');
                     $scope.serie = {};
                 } else {
                     var serie = new mySeries ($scope.serie);
                     serie.$save(function(response) {
+                        Materialize.toast('Add on your list', 3000, 'rounded');
                         $scope.serie = {};
                     }, function(error) {
                         $scope.serie = {};

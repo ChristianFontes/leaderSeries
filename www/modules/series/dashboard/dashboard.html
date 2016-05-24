@@ -1,18 +1,20 @@
 <ion-view>
-    <div class="tabs-striped tabs-top tabs-background-light tabs-color-dark">
+    <div class="tabs-striped tabs-top tabs-background-royal tabs-color-dark">
     	<div class="tabs">
       		<div class="tab-item" ng-click="selectTabWithIndex(1)">
-				<i class="icon ion-android-calendar"></i>
+				<i class="icon ion-android-calendar light"></i>
 			</div>
       		<div class="tab-item" ng-click="selectTabWithIndex(2)">
-				<i class="icon ion-calendar"></i>
+				<i class="icon ion-calendar light"></i>
 			</div>
       		<div class="tab-item" ng-click="selectTabWithIndex(3)">
-        		<i class="icon ion-android-search"></i>
+        		<i class="icon ion-android-search light"></i>
       		</div>
     	</div>
 	</div>
   	<ion-content class="dashboard-container padding">
+  	<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+	</ion-refresher>
         <div class="row">
         	<div class="col" ng-if="active || showTodayEpisode">
         		<div class="item tittle light">
@@ -23,10 +25,10 @@
 				<div ng-repeat="list in listToday">
 	    			<div ng-repeat="serie in list| orderBy: 'airtime'"
 	    				ng-if="listSerie.id == serie.id">
-	    				
-	    				<h4 class="energized"><b>{{listSerie.show.name}}</b></h4>
-
-	    				<div class="item item-thumbnail-left">
+	    				<ion-checkbox ng-click="recommend(listSerie)" class="energized">
+	    					<b>{{listSerie.show.name}}</b>
+	    				</ion-checkbox>
+	    				<div class="item item-thumbnail-left" ng-click="infoSerie(listSerie)">
 						    <img src="{{listSerie.show.image.medium}}">
 						    <h7>{{serie.name}}</h7>
 						    <h3 ng-if="serie.season < 10 && serie.number < 10">
@@ -44,6 +46,9 @@
 						    <div class="color-date">
 						    	{{serie.airstamp | date:"MMM/dd/yyyy 'at' h:mm a"}}
 						    </div>
+						    <h3>
+						    	<b>Channel: {{listSerie.show.network.name}}</b>
+						    </h3>
 					    </div>
 					</div>
 				</div>
@@ -54,10 +59,10 @@
         		<div class="item tittle light">
                     <b>My Next Episodes </b>
                 </div>
-				<div ng-repeat="episode in nextEpisode">
+				<div ng-repeat="episode in nextEpisode| orderBy: '_embedded.nextepisode.airstamp'" ng-click="infoSerie(episode)">
 					<div class="item item-thumbnail-left">
 			    		<img src="{{episode.image.medium}}">
-			    		<h2><b>{{episode.name}}</b></h2>
+			    		<h2 class="energized"><b>{{episode.name}}</b></h2>
 			    		<h7 ng-if="episode._embedded.nextepisode.season < 10 && episode._embedded.nextepisode.number < 10">
 					    	<b>0{{episode._embedded.nextepisode.season}}x0{{episode._embedded.nextepisode.number}}</b>
 					    </h7>
@@ -84,56 +89,47 @@
 				<div class="item tittle light">
                     <b>Search & Add Series</b>
                 </div>
-				<form name="serie" ng-submit="searched(serie)" >
-					<label class="item item-input">
+				<form name="serie" ng-submit="searched(serie)">
+					<label class="item item-input form background-search">
 						<i class="icon ion-search placeholder-icon"></i>
 				  		<input type="search" 
 				  			placeholder="Type your series name" 
 				  			ng-model="data.search">
-				  		<button class="button button-small">
-				      		Submit
-				    	</button>
 					</label>
 				</form>
 				<div ng-repeat="serie in mySearch"
 	    			ng-if="serie.show.externals.imdb">
 					<div class="item item-thumbnail-left">
-						<img src="{{serie.show.image.medium}}">
-						<h2>{{serie.show.name}}</h2>
-						<p>Premiered: {{serie.show.premiered  | date:"MMM/dd/yyyy"}}</p>
-						<p>
-					      	<div class="waves-effect waves-light btn" 
-					      		ng-click="addSerie(serie.show.externals.imdb);">
-					      		+ Add to my list
-					      	</div>
-					    </p>
+						<img src="{{serie.show.image.medium}}" ng-click="infoSerie(serie)">
+						<h2 class="energized" ng-click="infoSerie(serie)">
+							<b>{{serie.show.name}}</b>
+						</h2>
+						<h3 ng-if="serie.show.premiered">
+							<b>Premiered: {{serie.show.premiered  | date:"MMM/dd/yyyy"}}</b>
+						</h3>
+						<h3 ng-if="serie.show.status">
+							<b>Status: <color-status>{{serie.show.status}}</color-status></b>
+						</h3>
+						<h3 ng-if="serie.show.schedule.days[0]">
+							<b>Schedule: 
+								<color-schedule>
+									{{serie.show.schedule.days[0]}}
+									{{serie.show.schedule.days[1]}}<br>
+									{{serie.show.schedule.days[2]}}
+									{{serie.show.schedule.days[3]}}
+									{{serie.show.schedule.days[4]}}<br>
+									{{serie.show.schedule.days[5]}}
+									{{serie.show.schedule.days[6]}}
+								</color-schedule>
+							</b>
+						</h3>
+						<div class="item-icon-right position-plus">
+		                    <button class="icon button button-icon ion-plus-round balanced" 
+		                    	ng-click="addSerie(serie.show.externals.imdb)">
+		                    </button>
+		                </div>
 					</div>
 	    		</div>
-				<div ng-repeat="today in toptoday" ng-if="mySearch == null">
-    				<div class="item item-thumbnail-left" 
-    					ng-repeat="list in today | orderBy: 'airtime' | limitTo: -20" 
-    					ng-if="list.show.externals.imdb">
-
-					    <img src="{{list.show.image.medium}}">
-					    <h2><b>{{list.show.name}}</b></h2>
-					    <h7>{{list.name}}</h7>
-					    <h3 ng-if="list.season < 10 && list.number < 10">
-					    	Episode: 0{{list.season}}x0{{list.number}}
-					    </h3>
-					    <h3 ng-if="list.season > 9 && list.number < 10">
-					    	Episode: {{list.season}}x0{{list.number}}
-					    </h3>
-					    <h3 ng-if="list.season > 9 && list.number > 9">
-					    	Episode: {{list.season}}x{{list.number}}
-					    </h3>
-					    <h3 ng-if="list.season < 10 && list.number > 9">
-					    	Episode: 0{{list.season}}x{{list.number}}
-					    </h3>
-					    <h3>
-					    	<b>{{list.airstamp | date:"MMM/dd/yyyy 'at' h:mm a"}}</b>
-					    </h3>
-				    </div>
-			    </div>
         	</div>
         </div>
     </ion-content>

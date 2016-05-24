@@ -1,0 +1,35 @@
+.infoSerie-container {
+  background-size: cover;
+  background-color: #263238;
+  
+  .card {
+    text-align: justify;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    background-color: transparent !important;
+    border-color: none;
+    color: $light;
+  }
+
+  .size-card{
+    width:60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 10px;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .tittle { 
+    background-color: transparent !important;
+    border: none;
+  }
+
+  color-text {
+    color: $energized;
+  }
+}

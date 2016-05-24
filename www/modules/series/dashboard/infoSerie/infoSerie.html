@@ -1,0 +1,58 @@
+<ion-view>
+  	<ion-content class="infoSerie-container padding">
+		<div class="size-card" ng-if="infoSerie.show.image.medium && !infoSerie.image.medium">
+			<img src="{{infoSerie.show.image.medium}}">
+		</div>
+		<div class="size-card" ng-if="!infoSerie.show.image.medium && infoSerie.image.medium">
+			<img src="{{infoSerie.image.medium}}">
+		</div>
+		<div>
+			<h4 class="energized center"><b>{{infoSerie.name}}</b></h4>
+		</div>
+		<h5 class="calm center" ng-if="infoSerie.airstamp">
+			<b>{{infoSerie.airstamp | date:"MMM/dd/yyyy 'at' h:mm a"}}</b>
+		</h5>
+		<div class="card" ng-if="infoSerie.summary">
+			<b>{{infoSerie.summary}}</b>
+		</div>
+		<div class="item item-icon-left tittle light" 
+			ng-if="infoSerie.show.network.name && !infoSerie.network.name">
+            <i class="icon ion-earth"></i>
+            <b><color-text>Channel:</color-text> {{infoSerie.show.network.name}}</b>
+        </div>
+        <div class="item item-icon-left tittle light" 
+			ng-if="!infoSerie.show.network.name && infoSerie.network.name">
+            <i class="icon ion-earth"></i>
+            <b><color-text>Channel:</color-text> {{infoSerie.network.name}}</b>
+        </div>
+        <div class="item item-icon-left tittle light" 
+        	ng-if="infoSerie.show.rating.average && !infoSerie.rating.average">
+            <i class="icon ion-android-star"></i>
+            <b><color-text>Rating:</color-text> {{infoSerie.show.rating.average}}</b>
+        </div>
+        <div class="item item-icon-left tittle light" 
+        	ng-if="!infoSerie.show.rating.average && infoSerie.rating.average">
+            <i class="icon ion-android-star"></i>
+            <b><color-text>Rating:</color-text> {{infoSerie.rating.average}}</b>
+        </div>
+        <div class="item item-icon-left tittle light" 
+        	ng-if="infoSerie.show.genres[0] && !infoSerie.genres[0]">
+            <i class="icon ion-information"></i>
+            <b><color-text>Genres:</color-text> 
+	            {{infoSerie.show.genres[0]}} 
+	            {{infoSerie.show.genres[1]}}
+	            {{infoSerie.show.genres[2]}}
+            </b>
+        </div>
+        <div class="item item-icon-left tittle light" 
+        	ng-if="!infoSerie.show.genres[0] && infoSerie.genres[0]">
+            <i class="icon ion-information"></i>
+            <b><color-text>Genres:</color-text> 
+	            {{infoSerie.genres[0]}} 
+	            {{infoSerie.genres[1]}}
+	            {{infoSerie.genres[2]}}
+            </b>
+        </div>
+        <br>
+    </ion-content>
+</ion-view>

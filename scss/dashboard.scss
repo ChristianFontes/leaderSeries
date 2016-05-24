@@ -1,7 +1,6 @@
 .dashboard-container{
   background-size: cover;
   background-color: #263238;
-  margin-bottom: 40px;
   
   .tittle { 
     background-color: transparent !important;
@@ -12,21 +11,56 @@
   ::-webkit-input-placeholder {
     color: $light;
   }
-  
-  h2 {
-    color: #FF6F00;
+
+  input[type=search], select {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: $energized;
+    font-weight: bold;
   }
+
   .item {
     background-color: transparent !important;
     border: transparent !important;
   }
+
   h7 {
-    color: #64FFDA;
+    color: $balanced;
   }
+
   h3 {
-    color: #ffffff;
+    color: $light;
   }
+
   .color-date {
     color: #EEEEEE;
+  }
+
+  .form {
+    margin-top: -20px;
+    color: $light;
+  }
+
+  .position-plus {
+    text-align: right;
+    margin-bottom: -20px;
+    margin-right: 20px;
+  }
+
+  color-status{
+    color: $assertive;
+  }
+
+  color-schedule {
+    color: $calm;
+  }
+
+  .background-search {
+    color: $light;
   }
 }

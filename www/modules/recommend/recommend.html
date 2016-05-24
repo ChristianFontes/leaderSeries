@@ -1,0 +1,26 @@
+<ion-view>
+  	<ion-content class="recommend-container padding">
+	<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+	</ion-refresher>
+        <div class="row">
+        	<div class="col">
+			<div class="list" ng-repeat="item in recommend |orderBy:'-updatedAt'|
+				limitTo:20">
+				<div class="item-avatar-left format">
+            		<img src="{{item.avatar}}">
+            		<h5 class="energized"><b>@{{item.username}}</b>
+						<color><b></b></color>
+					</h5>
+					<div class="light"><b>#{{item.serieName}}</b></div>
+					<h5 class="light text-right">
+						<b>Recommended at {{item.updatedAt | date:"h:mm a"}}</b>
+					</h5>
+					<div class="item-avatar-right">
+	            		<img src="{{item.imageSerie}}">
+	            	</div>
+            	</div>
+			</div>
+			</div>
+        </div>
+    </ion-content>
+</ion-view>

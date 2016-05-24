@@ -26,7 +26,7 @@
       abstract: true,
       templateUrl: 'templates/side-menu.html',
       data: {
-        access: 'public'
+        access: 'protected'
       }
     })
     .state('series.Dashboard', {
@@ -98,6 +98,33 @@
         'menuContent': {
           templateUrl: 'modules/profile/profile.html',
           controller: 'profileController'
+        }
+      }
+    })
+    .state('series.infoSerie', {
+      url: '/infoserie',
+      views: {
+        'menuContent': {
+          templateUrl: 'modules/series/dashboard/infoSerie/infoSerie.html',
+          controller: 'infoSerieController'
+        }
+      }
+    })
+    .state('series.recommend', {
+      url: '/recommend',
+      views: {
+        'menuContent': {
+          templateUrl: 'modules/recommend/recommend.html',
+          controller: 'recommendController'
+        }
+      }
+    })
+    .state('series.activity', {
+      url: '/activity',
+      views: {
+        'menuContent': {
+          templateUrl: 'modules/activity/activity.html',
+          controller: 'activityController'
         }
       }
     });

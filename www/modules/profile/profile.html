@@ -32,11 +32,11 @@
                 <i class="icon ion-refresh light" ng-show="data.avatar != ''" ng-click="clearAvatar()"></i>
             </div>
         </div>
-        
         <div class="row">
             <img class="avatar-list" ng-repeat="avatar in listAvatares" 
-            ng-src="/img/{{avatar.url}}" ng-click="toggleImage(avatar)">
+            ng-src="{{avatar.url}}" ng-click="toggleImage(avatar)">
         </div>
+        <h5 class="light center"><b>To upload your own image use the web version</b></h5>
         </div>
         <div class="row">
         	<div class="col center">
@@ -44,7 +44,7 @@
         		<img class="avatar" ng-if="user.avatar" ng-src="{{user.avatar}}" 
                     ng-show="!editAccount">
                 <img class="avatar" ng-if="!user.avatar" 
-                    ng-src="/img/profile-default.png" ng-show="!editAccount">
+                    ng-src="./img/profile-default.png" ng-show="!editAccount">
                 <div class="card">
                     <div class="item item-icon-left">
                         <i class="icon ion-person"></i>

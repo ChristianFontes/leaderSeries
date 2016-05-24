@@ -4,24 +4,26 @@
         .controller('profileController', controller);
 
     function controller($stateParams, $scope, $window, $state, $sessionStorage, 
-        User, $ionicModal, AuthService) {
+        User, $ionicModal, AuthService, $ionicLoading) {
         
         $scope.user = {};
 
         $scope.listAvatares = [
-            {url: "avatar.png",  name:"avatar"},
-            {url: "avatar2.png", name:"avatar2"},
-            {url: "avatar3.png", name:"avatar3"},
-            {url: "avatar4.png", name:"avatar4"},
-            {url: "avatar5.png", name:"avatar5"}
+            {url: "./img/avatar.png",  name:"avatar"},
+            {url: "./img/avatar2.png", name:"avatar2"},
+            {url: "./img/avatar3.png", name:"avatar3"},
+            {url: "./img/avatar4.png", name:"avatar4"},
+            {url: "./img/avatar5.png", name:"avatar5"}
         ];
 
         $scope.$on('$ionicView.beforeEnter', function(){
+            $ionicLoading.show();
             var user = User.get({id: $sessionStorage.sessionUser.user.id}, function(){
                 $scope.user = user;
                 $scope.data = {
                     avatar: user.avatar
                 };
+                $ionicLoading.hide();
             });
         });
         
@@ -48,7 +50,7 @@
         }
 
         $scope.toggleImage = function(avatar) {
-            var image = "/img/" + avatar.url;
+            var image = avatar.url;
             $scope.data.avatar = image;
         };
 
@@ -99,16 +101,21 @@
         var fileInput = angular.element(document.querySelector('#fileInput'));
         fileInput.on('change',handleFileSelect);
 
-
         function updateAccount(form) {
             if (!form.$invalid) {
                 var user = new User($scope.data);    
                 user.$update({id: $sessionStorage.sessionUser.user.id},function (response) {
-                        $state.go('series.profile');
-                        $scope.data = {};
-                        $state.reload(true);
+                    var user = User.get({id: $sessionStorage.sessionUser.user.id}, function () {
+                        $sessionStorage.avatar = user.avatar;
+                        $scope.avatar = $sessionStorage.avatar;
+                        $sessionStorage.name = user.username;
+                        $scope.name = $sessionStorage.name;
+                    });
+                    $state.go('series.profile');
+                    $scope.data = {};
                 }, function (error) {
                     $scope.err = error;
+                    $ionicLoading.hide();
                 });
             } else {
                 angular.forEach(form.$error, function (field) {
@@ -117,6 +124,7 @@
                     });
                 });
             }
+            $state.reload(true);
         }
         
         $scope.logout = function logout() {

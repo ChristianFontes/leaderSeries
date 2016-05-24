@@ -1,5 +1,7 @@
 <ion-view>
     <ion-content class="mySeries-container">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+	</ion-refresher>
         <div class="row">
         	<div class="col col-85">
 	            <div class="item item-icon-left tittle light">
@@ -50,15 +52,75 @@
         	</div>
         </div>
         <div class="row" ng-if="!showSearch">
-        	<div class="col">
+        	<div class="col col-60">
 	            <div class="item item-icon-left tittle light">
 	                <i class="icon ion-android-list light"></i>
 	                <b>My List Series</b>
 	            </div>
 	        </div>
+	        <div class="col col-40">
+                <ion-toggle class="light" ng-model="$parent.shouldShowDelete">
+                	<i class="icon ion-trash-a light"></i>
+                </ion-toggle>
+	        </div>
 	    </div>
 	    <div class="row" ng-if="!showSearch">
-        	<div class="col list list-series">
+	    	<ion-list class="list list-series" show-delete="shouldShowDelete">
+			  <ion-item class="item margin2" ng-repeat="series in user.series">
+				<ion-checkbox ng-click="recommend(series.serie)" class="energized">
+					<b>{{series.serie.name}}</b>
+				</ion-checkbox>
+
+			    <ion-delete-button class="ion-minus-circled" ng-click="deleteSerie(series)">
+			    </ion-delete-button>
+			    <div class="item item-thumbnail-left margin2">
+			    <img class="size-image" ng-if="series.serie.image.medium" 
+                    ng-src="{{series.serie.image.medium}}">
+                <img class="size-image" 
+                    ng-if="!series.serie.image.medium"
+                    ng-src="/img/noImage.png">
+                <div class="margin3" ng-click="setCurrentSerie(series)">
+					<div class="item-text-wrap inside">
+
+					<div ng-repeat="episode in nextEpisode"
+						 ng-if="episode.id == series.serie.id">
+						<h3 class="date-nextEpisode padding-top light"
+							ng-if="episode._embedded.nextepisode.season">
+							<b>Next Episode:</b>
+						</h3>
+			    		<h7 class="balanced"
+			    			ng-if="episode._embedded.nextepisode.season < 10 && episode._embedded.nextepisode.number < 10">
+					    	0{{episode._embedded.nextepisode.season}}x0{{episode._embedded.nextepisode.number}}
+					    </h7>
+					    <h7 class="balanced"
+					    	ng-if="episode._embedded.nextepisode.season > 9 && episode._embedded.nextepisode.number < 10">
+					    	{{episode._embedded.nextepisode.season}}x0{{episode._embedded.nextepisode.number}}
+					    </h7>
+					    <h7 class="balanced"
+					    	ng-if="episode._embedded.nextepisode.season > 9 && episode._embedded.nextepisode.number > 9">
+					    	{{episode._embedded.nextepisode.season}}x{{episode._embedded.nextepisode.number}}
+					    </h7>
+					    <h7 class="balanced"
+					    	ng-if="episode._embedded.nextepisode.season < 10 && episode._embedded.nextepisode.number > 9">
+					    	0{{episode._embedded.nextepisode.season}}x{{episode._embedded.nextepisode.number}}
+					    </h7>
+					    <h7 class="balanced">{{episode._embedded.nextepisode.name}}</h7>
+					    <h3 class="light"><b>
+					    	{{episode._embedded.nextepisode.airstamp | date:"EEEE, MMMM d, y"}}</b>
+					    </h3>
+					    <h3 class="light"><b>
+					    	{{series.serie.network.name}} / 
+							{{episode._embedded.nextepisode.airstamp | date:"h:mma"}}</b>
+						</h3>
+					</div>
+					</div>
+				</div>
+				</div>
+			  </ion-item>
+			</ion-list>
+
+<!--
+        	<div class="list list-series">
 		    <div class="item item-thumbnail-left" ng-repeat="series in user.series">
 			    <img class="size-image" ng-if="series.serie.image.medium" 
                     ng-src="{{series.serie.image.medium}}">
@@ -103,10 +165,11 @@
 					</div>
 				</div>
 				<div class="item-icon-right position-delete">
-                    <button class="icon button button-icon ion-android-close assertive" 	ng-click="deleteSerie(series)">
+                    <button class="icon button button-icon ion-android-close assertive" 	
+                    	ng-click="deleteSerie(series)">
                     </button>
                 </div>
-		    </div>
+		    </div>-->
         </div>
 		</div> 
     </ion-content>

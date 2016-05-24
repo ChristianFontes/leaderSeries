@@ -1,7 +1,6 @@
 .premieres-container{
   background-size: cover;
   background-color: #263238;
-  margin-bottom: 40px;
 
   .size-image{
   	height: 160px; 
@@ -14,6 +13,18 @@
 
   ::-webkit-input-placeholder {
     color: $light;
+  }
+
+  input[type=search], select {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: $energized;
+    font-weight: bold;
   }
 
   .tittle { 

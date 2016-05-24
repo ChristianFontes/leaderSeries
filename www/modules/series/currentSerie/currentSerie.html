@@ -1,13 +1,13 @@
 <ion-view view-cached="false">
     <ion-content class="currentSerie-container padding">
     <div class="row">
-      <div class="col col-85">
+      <div class="col col-80">
           <div class="item item-icon-left tittle light">
               <i class="icon ion-pin"></i>
               <b>{{currentSerie.show.name}}</b>
           </div>
       </div>
-      <div class="col col-15 buttom-right">
+      <div class="col col-20 buttom-right">
           <button class="button button-assertive" 
               ng-click="showInfo = true" 
               ng-show="!showInfo">
@@ -19,8 +19,8 @@
               <i class="icon ion-minus-round"></i>
           </button>
       </div>
-    </div><br>
-    <div ng-if="!showInfo">
+    </div>
+    <div ng-if="!showInfo"><br>
       <div class="size-card">
         <img src="{{currentSerie.show.image.medium}}">
       </div>
@@ -28,9 +28,6 @@
         <b>{{summary}}</b>
       </div>
       <div ng-repeat="list in listSeasons | filter:{number: lastSeason}">
-        <div class="item tittle light">
-            <b>Previous Episodes</b>
-        </div>
         <ion-list>
           <ion-item ng-repeat="episodes in listEpisodes | filter:{season: lastSeason} | limitTo: -5 | orderBy: '-airdate'" ng-if="episodes.airdate <= getToday">
             <div class="item item-body style light">
@@ -49,7 +46,7 @@
     <div ng-if="showInfo">
       <div class="card light">
         <h5 class="light"><b>Airs on: </b>
-          <img src="/img/usa.png">
+          <img src="./img/usa.png">
           <channel><b>{{currentSerie.show.network.name}}</b></channel>
         </h5>
         <h5 class="light" ng-if="currentSerie.show.genres[0]">

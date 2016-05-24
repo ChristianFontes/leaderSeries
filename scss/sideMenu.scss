@@ -15,7 +15,7 @@
   }
 
   .background-header {
-    background: url('/img/b1.jpg') center;
+    background: url('../img/b4.jpg') center;
     max-height: 150px;
   }
 
@@ -29,5 +29,10 @@
 
   b {
     cursor: pointer;;
+  }
+
+  .information {
+    padding: 20px;
+    text-align: justify;
   }
 }

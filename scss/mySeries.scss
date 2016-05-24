@@ -1,16 +1,15 @@
 .mySeries-container{
 	background-size: cover;
 	background-color: #263238;
-	margin-bottom: 40px;
 	
 	.size-image {
 		border-radius: 20%;
 	}
-	.item {
-		margin-left: 7px;
-		margin-right: 7px;
+	.item, .item-content {
 		background-color: transparent !important;
 		border-color: transparent !important;
+		margin: -6px;
+		margin-bottom: -10px;
 	}
 	.lastEpisodeSeen {
 		border-bottom-right-radius: 2em;
@@ -20,6 +19,7 @@
 		background-color: transparent !important;
 		border: none;
 	}
+
 	h5 {
 		color: #0089FF;
 		text-align: right;
@@ -41,5 +41,14 @@
 	}
 	.align-buttom {
 		text-align: right;
+	}
+	.margin {
+		margin-top: -35px;
+	}
+	.margin2 {
+		margin-top: -25px;
+	}
+	.margin3 {
+		margin-top: -10px;
 	}
 }

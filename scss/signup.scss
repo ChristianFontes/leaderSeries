@@ -1,6 +1,6 @@
 .signup-container{
   background-size: cover;
-  background: url('../img/b7.jpg') center;
+  background-color: #263238;
   .signup-header{
     margin-top: 40px;
   }
@@ -40,5 +40,12 @@
   }
   .center-botton{
     text-align: center;
+  }
+  .error-center {
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;
+    text-align: center;
+    margin-bottom: -10px;
   }
 }
