@@ -16,7 +16,23 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "cordova-plugin-whitelist"
+    "cordova-plugin-whitelist",
+    {
+      "variables": {
+        "SENDER_ID": "761596609943"
+      },
+      "locator": "phonegap-plugin-push",
+      "id": "phonegap-plugin-push"
+    },
+    {
+      "locator": "https://github.com/katzer/cordova-plugin-local-notifications.git",
+      "id": "de.appplant.cordova.plugin.local-notification"
+    },
+    {
+      "locator": "https://github.com/platanus/PushNotification.git",
+      "id": "com.phonegap.plugins.PushPlugin"
+    },
+    "cordova-admob"
   ],
   "cordovaPlatforms": []
 }

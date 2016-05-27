@@ -5,8 +5,8 @@
 
     function controller(
         $stateParams, $rootScope, $filter, $http, $scope, $window, mySeries, $ionicHistory, 
-        $state, $sessionStorage, $ionicSideMenuDelegate, User, Series, userSeries, $ionicLoading){
-        
+        $state, $sessionStorage, $ionicSideMenuDelegate, User, Series, userSeries,
+        $ionicLoading, deviceToken){
 
         $scope.$on('$ionicView.beforeEnter', function () {
             $scope.go = go;
@@ -18,6 +18,17 @@
             $scope.data = {};
             $scope.serie = {};
             $scope.data.serie_id = {};
+
+            if($sessionStorage.device_token != undefined){
+                $scope.data.owners = $sessionStorage.sessionUser.user.id;
+                $scope.data.token = $sessionStorage.device_token;
+                
+                var token = new deviceToken($scope.data);
+                token.$save(function(response) {
+                    $scope.data = {};
+                }, function(error) {
+                });
+            }
 
             $ionicLoading.show();
 

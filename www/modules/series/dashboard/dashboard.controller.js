@@ -7,7 +7,7 @@
         $stateParams, $rootScope, $filter, $http, $scope, $window, mySeries, $ionicHistory, 
         $state, $sessionStorage, $ionicSideMenuDelegate, User, Series, progressSeries,
         AuthService, userSeries, $ionicTabsDelegate, saveEpisodes, recommendPost, 
-        $ionicLoading){
+        $ionicLoading, seriesToday, $cordovaLocalNotification){
 
         $scope.$on('$ionicView.beforeEnter', function () {
             $scope.go = go;
@@ -26,7 +26,9 @@
             var today = new Date(),
                 day = today.getDate(),
                 month = today.getMonth() + 1,
-                year = today.getFullYear();
+                year = today.getFullYear(),
+                hour = today.getHours(),
+                minute = today.getMinutes();
 
             if(month < 10 && day < 10){
                 var scheduleToday = year + "-0" + month + "-0" + day;
@@ -42,6 +44,16 @@
                 $scope.getToday = scheduleToday;
             }
 
+            if(hour < 10 && minute < 10){
+                var time = "0" + hour + ":" + "0" + minute;
+            } else if(hour > 9 && minute < 10){
+                var time = hour + ":" + "0" + minute;
+            } else if(hour < 10 && minute > 9){
+                var time = "0" + hour + ":" +  minute;
+            } else {
+                var time = hour + ":" +  minute;
+            }
+
             var user = User.get({id: $sessionStorage.sessionUser.user.id}, function () {
                 $scope.user = user;
                 $scope.listToday = [];
@@ -54,6 +66,11 @@
                 $scope.avatar = $sessionStorage.avatar;
                 $sessionStorage.name = user.username;
                 $scope.name = $sessionStorage.name;
+
+                var isWebView = ionic.Platform.isWebView();
+                var isAndroid = ionic.Platform.isAndroid();
+
+                var mySeriesToday = user.seriesToday.length;
 
                 $sessionStorage.userSeries = user.series;
                 var limit = $sessionStorage.userSeries.length;
@@ -69,12 +86,61 @@
                     });
                 } 
 
+                for (var i = 0; i < mySeriesToday; i++) {
+                    if(user.seriesToday[i].date != scheduleToday){
+                        seriesToday.delete({ id: user.seriesToday[i].id }, function() {
+                        });
+                    } 
+                }
+
+                var interval = setInterval(function() {
+                    function addZero(i) {
+                        if (i < 10) {
+                            i = "0" + i;
+                        }
+                        return i;
+                    }
+
+                    for (var i = 0; i < mySeriesToday; i++) {
+                        var now = user.seriesToday[i].mySerie.airstamp;
+                        var d = new Date(now);
+                        var h = addZero(d.getHours());
+                        var m = addZero(d.getMinutes());
+                        var compare = h + ":" + m;
+
+                        var name = user.seriesToday[i].mySerie.name,
+                            season = user.seriesToday[i].mySerie.season,
+                            episode = user.seriesToday[i].mySerie.number;
+
+                        var push = h - hour;
+
+                        if(isAndroid && (push <= 2 && push > 0)){
+                            var text = season + "x" + episode + ": " + name;
+                            $cordovaLocalNotification.schedule({
+                                message: text,
+                                title: "Today! New episode",
+                                icon: "res://icon.png"
+                                }).then(function () {
+                            });
+                        }
+                    }
+                },7200000);
+
                 for (var i = limit - 1; i >= 0; i--) {
                     var id = $sessionStorage.userSeries[i].serie.id;
-
                     Series.episodesByDate(id,scheduleToday).then(function(episodesByDate) {
                         if(episodesByDate){
                             $scope.listToday.push(episodesByDate);
+                            $scope.data.owners = $sessionStorage.sessionUser.user.id;
+                            $scope.data.mySerie = episodesByDate[0];
+                            $scope.data.serieId = episodesByDate[0].id;
+                            $scope.data.date = scheduleToday;
+                            $scope.data.time = episodesByDate[0].airtime;
+                            var user = new seriesToday($scope.data);
+                            user.$save(function(response) {
+                                $scope.data = {};
+                            }, function(error) {
+                            });
                         }
                     });
 

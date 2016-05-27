@@ -4,6 +4,10 @@
 	</ion-refresher>
         <div class="row">
         	<div class="col">
+        	<div class="item item-icon-left tittle light">
+                <i class="icon ion-android-favorite assertive"></i>
+                <b>List of Recommendations</b>
+            </div>
 			<div class="list" ng-repeat="item in recommend |orderBy:'-updatedAt'|
 				limitTo:20">
 				<div class="item-avatar-left format">

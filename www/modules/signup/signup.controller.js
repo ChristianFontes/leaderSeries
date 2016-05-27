@@ -3,7 +3,8 @@
     angular.module('leaderSeries')
         .controller('signupController', controller);
 
-    function controller($stateParams, $scope, $window, $state, $sessionStorage, User) {
+    function controller($stateParams, $scope, $window, $state, $sessionStorage, User,
+      RequestsService, $cordovaDevice, $cordovaPush) {
       
       $scope.data = {};
       $scope.err = '';
@@ -14,7 +15,7 @@
       function go(path){
         $state.go(path);
       }
-
+      
       function signup(form) {
         if (!form.$invalid) {
             var user = new User($scope.data);
@@ -35,7 +36,6 @@
                 });
             });
         }
-
       }
     }
 })();

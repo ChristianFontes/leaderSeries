@@ -1,6 +1,6 @@
 {
   "name": "leaderSeries",
-  "app_id": "",
+  "app_id": "82807bd5",
   "gulpStartupTasks": [
     "sass",
     "watch"
@@ -8,5 +8,12 @@
   "watchPatterns": [
     "www/**/*",
     "!www/lib/**/*"
+  ],
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "12.41.296.5"
+    }
   ]
 }

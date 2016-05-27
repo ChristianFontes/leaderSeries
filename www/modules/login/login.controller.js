@@ -3,7 +3,8 @@
     angular.module('leaderSeries')
         .controller('loginController', controller);
 
-    function controller($stateParams, $scope, $window, $state, AuthService) {
+    function controller($stateParams, $scope, $window, $state, AuthService, 
+      $cordovaLocalNotification, $ionicPlatform, $sessionStorage) {
 
       $scope.data = {};
       $scope.err = '';
@@ -43,12 +44,25 @@
       }
 
       function guest() {
+        var isWebView = ionic.Platform.isWebView();
+        var isAndroid = ionic.Platform.isAndroid();
+
         var credentials = {};
         credentials.email = "guest@email.com";
-        credentials.password = "123456";
+        credentials.password = "qqqqqq";
         var login = AuthService.login(credentials)
           .success(function (response) {
+            if(isAndroid){
+              $cordovaLocalNotification.schedule({
+                text: "You are logged in as Guest",
+                title: "Welcome a TrailTV",
+                icon: "res://icon.png"
+              }).then(function () {
+                $state.go('series.premieres');
+              });
+            }else{
               $state.go('series.premieres');
+            }
           })
           .error(function (response, status) {
               if(status == 400){
